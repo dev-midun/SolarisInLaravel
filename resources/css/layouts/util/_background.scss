@@ -1,0 +1,1040 @@
+@use "../variables";
+/* Start:: background */
+.color-container {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: variables.$box-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 3rem;
+}
+.text-container {
+  padding: 0.25rem 0.5rem;
+  border-radius: variables.$default-radius;
+  box-shadow: variables.$box-shadow;
+}
+/* Start::background color */
+.bg-body {
+    background-color: variables.$default-body-color !important;
+}
+/* End::background color */
+
+/* Start::background color */
+.bg-primary {
+    background-color: variables.$primary !important;
+    &.bg-opacity-10 {
+        background-color: variables.$primary-01 !important;
+    }
+    &.bg-opacity-25 {
+        background-color: variables.$primary-03 !important;
+    }
+    &.bg-opacity-50 {
+        background-color: variables.$primary-05 !important;
+    }
+    &.bg-opacity-75 {
+        background-color: variables.$primary-08 !important;
+    }
+    &.bg-opacity-100 {
+        background-color: variables.$primary !important;
+    }
+}
+.bg-secondary {
+    background-color: variables.$secondary !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--secondary-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--secondary-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--secondary-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--secondary-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--secondary-rgb),1) !important;
+    }
+}
+.bg-info {
+    background-color: variables.$info !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--info-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--info-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--info-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--info-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--info-rgb),1) !important;
+    }
+}
+.bg-success {
+    background-color: variables.$success !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--success-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--success-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--success-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--success-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--success-rgb),1) !important;
+    }
+}
+.bg-warning {
+    background-color: variables.$warning !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--warning-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--warning-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--warning-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--warning-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--warning-rgb),1) !important;
+    }
+}
+.bg-danger {
+    background-color: variables.$danger !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--danger-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--danger-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--danger-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--danger-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--danger-rgb),1) !important;
+    }
+}
+.bg-dark {
+    background-color: variables.$dark !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--dark-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--dark-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--dark-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--dark-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--dark-rgb),1) !important;
+    }
+}
+.bg-light {
+    background-color: variables.$light !important;
+    &.bg-opacity-10 {
+        background-color: rgba(var(--light-rgb),0.1) !important;
+    }
+    &.bg-opacity-25 {
+        background-color: rgba(var(--light-rgb),0.25) !important;
+    }
+    &.bg-opacity-50 {
+        background-color: rgba(var(--light-rgb),0.50) !important;
+    }
+    &.bg-opacity-75 {
+        background-color: rgba(var(--light-rgb),0.75) !important;
+    }
+    &.bg-opacity-100 {
+        background-color: rgba(var(--light-rgb),1) !important;
+    }
+}
+.bg-white {
+    background-color: variables.$custom-white !important;
+}
+.bg-pink {
+    background-color: variables.$pink !important;
+}
+.bg-orange {
+    background-color: variables.$orange !important;
+}
+.bg-purple {
+    background-color: variables.$purple !important;
+}
+.bg-green {
+    background-color: variables.$green !important;
+}
+.bg-teal {
+    background-color: variables.$teal !important;
+}
+.bg-blue {
+    background-color: variables.$blue !important;
+}
+.bg-indigo {
+    background-color: variables.$indigo !important;
+}
+.bg-yellow {
+    background-color: variables.$yellow !important;
+}
+/* End::background color */
+
+/* Start::gradient colors */
+.bg-primary-gradient {
+  background: variables.$primary-gradient !important;
+  color: variables.$white;
+}
+.bg-secondary-gradient {
+  background: variables.$secondary-gradient !important;
+  color: variables.$white;
+}
+.bg-warning-gradient {
+  background: variables.$warning-gradient !important;
+  color: variables.$white;
+}
+.bg-info-gradient {
+  background: variables.$info-gradient !important;
+  color: variables.$white;
+}
+.bg-success-gradient {
+  background: variables.$success-gradient !important;
+  color: variables.$white;
+}
+.bg-danger-gradient {
+  background: variables.$danger-gradient !important;
+  color: variables.$white;
+}
+.bg-orange-gradient {
+  background: variables.$orange-gradient !important;
+  color: variables.$white;
+}
+.bg-purple-gradient {
+  background: variables.$purple-gradient !important;
+  color: variables.$white;
+}
+.bg-teal-gradient {
+  background: variables.$teal-gradient !important;
+  color: variables.$white;
+}
+.bg-light-gradient {
+  background: variables.$light-gradient !important;
+  color: variables.$black;
+}
+.bg-dark-gradient {
+  background: variables.$dark-gradient !important;
+  color: variables.$white;
+}
+/* End::gradient colors */
+
+/* Start:: outline colors */
+.bg-outline-primary {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$primary;
+  color: variables.$primary;
+}
+.bg-outline-secondary {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$secondary;
+  color: variables.$secondary;
+}
+.bg-outline-warning {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$warning;
+  color: variables.$warning;
+}
+.bg-outline-info {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$info;
+  color: variables.$info;
+}
+.bg-outline-success {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$success;
+  color: variables.$success;
+}
+.bg-outline-danger {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$danger;
+  color: variables.$danger;
+}
+.bg-outline-dark {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$dark;
+  color: variables.$dark;
+}
+.bg-outline-light {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$light;
+  color: variables.$custom-black;
+}
+/* End:: outline colors */
+
+/* Start::gray set */
+.bg-gray-100 {
+    background-color: variables.$gray-1; 
+}
+.bg-gray-200 {
+    background-color: variables.$gray-2;
+}
+.bg-gray-300 {
+    background-color: variables.$gray-3;
+}
+.bg-gray-400 {
+    background-color: variables.$gray-4;
+}
+.bg-gray-500 {
+    background-color: variables.$gray-5;
+}
+.bg-gray-600 {
+    background-color: variables.$gray-6;
+}
+.bg-gray-700 {
+    background-color: variables.$gray-7;
+}
+.bg-gray-800 {
+    background-color: variables.$gray-8;
+}
+.bg-gray-900 {
+    background-color: variables.$gray-9;
+}
+/* End::gray set */
+
+
+/* Start::background transparent */
+.bg-primary-transparent {
+    background-color: rgba(var(--primary-rgb), 0.1) !important;
+    color: variables.$primary !important;
+    &:hover {
+        background-color: rgba(var(--primary-rgb), 0.1) !important;
+        color: variables.$primary !important;
+    }
+}
+.bg-secondary-transparent {
+    background-color: rgba(var(--secondary-rgb), 0.1) !important;
+    color: variables.$secondary !important;
+    &:hover {
+        background-color: rgba(var(--secondary-rgb), 0.1) !important;
+        color: variables.$secondary !important;
+    }
+}
+.bg-info-transparent {
+    background-color: rgba(var(--info-rgb), 0.1) !important;
+    color: variables.$info !important;
+    &:hover {
+        background-color: rgba(var(--info-rgb), 0.1) !important;
+        color: variables.$info !important;
+    }
+}
+.bg-success-transparent {
+    background-color: rgba(var(--success-rgb), 0.1) !important;
+    color: variables.$success !important;
+    &:hover {
+        background-color: rgba(var(--success-rgb), 0.1) !important;
+        color: variables.$success !important;
+    }
+}
+.bg-warning-transparent {
+    background-color: rgba(var(--warning-rgb), 0.1) !important;
+    color: variables.$warning !important;
+    &:hover {
+        background-color: rgba(var(--warning-rgb), 0.1) !important;
+        color: variables.$warning !important;
+    }
+}
+.bg-danger-transparent {
+    background-color: rgba(var(--danger-rgb), 0.1) !important;
+    color: variables.$danger !important;
+    &:hover {
+        background-color: rgba(var(--danger-rgb), 0.1) !important;
+        color: variables.$danger !important;
+    }
+}
+.bg-light-transparent {
+    background-color: rgba(var(--light-rgb), 0.1) !important;
+    color: variables.$light !important;
+    &:hover {
+        background-color: rgba(var(--light-rgb), 0.1) !important;
+        color: variables.$default-text-color !important;
+    }
+}
+.bg-dark-transparent {
+    background-color: rgba(var(--dark-rgb), 0.1) !important;
+    color: variables.$dark !important;
+    &:hover {
+        background-color: rgba(var(--dark-rgb), 0.1) !important;
+        color: variables.$dark !important;
+    }
+}
+.bg-pink-transparent {
+    background-color: rgba(var(--pink-rgb), 0.1) !important;
+    color: variables.$pink !important;
+    &:hover {
+        background-color: rgba(var(--pink-rgb), 0.1) !important;
+        color: variables.$pink !important;
+    }
+}
+.bg-orange-transparent {
+    background-color: rgba(var(--orange-rgb), 0.1) !important;
+    color: variables.$orange !important;
+    &:hover {
+        background-color: rgba(var(--orange-rgb), 0.1) !important;
+        color: variables.$orange !important;
+    }
+}
+.bg-purple-transparent {
+    background-color: rgba(var(--purple-rgb), 0.1) !important;
+    color: variables.$purple !important;
+    &:hover {
+        background-color: rgba(var(--purple-rgb), 0.1) !important;
+        color: variables.$purple !important;
+    }
+}
+.bg-teal-transparent {
+    background-color: rgba(var(--teal-rgb), 0.1) !important;
+    color: variables.$teal !important;
+    &:hover {
+        background-color: rgba(var(--teal-rgb), 0.1) !important;
+        color: variables.$teal !important;
+    }
+}
+.bg-green-transparent {
+    background-color: rgba(var(--green-rgb), 0.1) !important;
+    color:variables.$green !important;
+    &:hover {
+        background-color: rgba(var(--green-rgb), 0.1) !important;
+        color:variables.$green !important;
+    }
+}
+.bg-indigo-transparent {
+    background-color: rgba(variables.$indigo, 0.1) !important;
+    color: variables.$indigo !important;
+    &:hover {
+        background-color: rgba(variables.$indigo, 0.1) !important;
+        color: variables.$indigo !important;
+    }
+}
+.bg-yellow-transparent {
+    background-color: rgba(variables.$yellow, 0.1) !important;
+    color: variables.$yellow !important;
+    &:hover {
+        background-color: rgba(variables.$yellow, 0.1) !important;
+        color: variables.$yellow !important;
+    }
+}
+.bg-blue-transparent {
+    background-color: rgba(variables.$blue, 0.1) !important;
+    color: variables.$blue !important;
+    &:hover {
+        background-color: rgba(variables.$blue, 0.1) !important;
+        color: variables.$blue !important;
+    }
+}
+.bg-white-transparent {
+    background-color: rgba(255,255,255, 0.1) !important;
+    color: rgb(255,255,255) !important;
+    &:hover {
+        background-color: rgba(255,255,255, 0.1) !important;
+        color: rgb(255,255,255) !important;
+    }
+}
+.bg-black-transparent {
+    background-color: rgba(0,0,0, 0.1) !important;
+    color: rgb(0,0,0) !important;
+    &:hover {
+        background-color: rgba(0,0,0, 0.1) !important;
+        color: rgb(0,0,0) !important;
+    }
+}
+/* End::background transparent */
+
+/* Start::backgrounds with colors */
+.text-bg-primary {
+    background-color:variables.$primary !important;
+    color:variables.$white !important;
+}
+.text-bg-secondary {        
+    background-color:variables.$secondary !important;
+    color:variables.$white !important;
+}
+.text-bg-warning {
+    background-color:variables.$warning !important;
+    color:variables.$white !important;
+}
+.text-bg-info {
+    background-color:variables.$info !important;
+    color:variables.$white !important;
+}
+.text-bg-success {
+    background-color:variables.$success !important;
+    color:variables.$white !important;
+}
+.text-bg-danger {
+    background-color:variables.$danger !important;
+    color:variables.$white !important;
+}
+.text-bg-light {
+    background-color:variables.$light !important;
+    color:variables.$black !important;
+}
+.text-bg-dark {
+    background-color:variables.$dark !important;
+    color:variables.$white !important;
+}
+/* End::backgrounds with colors */
+
+/* Start::svg colors */
+.svg-primary svg{
+    fill: variables.$primary;
+}
+.svg-secondary svg{
+    fill: variables.$secondary;
+}
+.svg-success svg{
+    fill: variables.$success;
+}
+.svg-danger svg{
+    fill: variables.$danger;
+}
+.svg-warning svg{
+    fill: variables.$warning;
+}
+.svg-white svg{
+    fill: variables.$white;
+}
+.svg-black svg{
+    fill: variables.$black;
+}
+.svg-pink svg{
+    fill: variables.$pink;
+}
+.svg-orange svg{
+    fill: variables.$orange;
+}
+.svg-purple svg{
+    fill: variables.$purple;
+}
+.svg-indigo svg{
+    fill: variables.$indigo;
+}
+.svg-info svg{
+    fill: variables.$info;
+}
+.svg-yellow svg{
+    fill: variables.$yellow;
+}
+.svg-light svg{
+  fill: variables.$light;
+}
+.svg-dark svg{
+  fill: variables.$dark;
+}
+.svg-teal svg{
+  fill: variables.$teal;
+}
+.svg-default svg{
+  fill: variables.$default-text-color;
+}
+/* End::svg colors */
+
+/* Start::Colors */
+/* Start::blue set */
+.bd-blue-100 {
+    background-color: rgba(variables.$blue, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-blue-200 {
+    background-color: rgba(variables.$blue, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-blue-300 {
+    background-color: rgba(variables.$blue, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-blue-400 {
+    background-color: rgba(variables.$blue, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-blue-500 {
+    background-color: rgba(variables.$blue, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-blue-600 {
+    background-color: rgba(variables.$blue, 0.6);
+    color: variables.$white;
+  }
+  .bd-blue-700 {
+    background-color: rgba(variables.$blue, 0.7);
+    color: variables.$white;
+  }
+  .bd-blue-800 {
+    background-color: rgba(variables.$blue, 0.8);
+    color: variables.$white;
+  }
+  .bd-blue-900 {
+    background-color: rgba(variables.$blue, 0.9);
+    color: variables.$white;
+  }
+  .bd-blue {
+    background-color: variables.$blue;
+    color: variables.$white;
+  }
+  /* Start::blue set */
+  
+  /* Start::indigo set */
+  .bd-indigo-100 {
+    background-color: rgba(variables.$indigo, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-indigo-200 {
+    background-color: rgba(variables.$indigo, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-indigo-300 {
+    background-color: rgba(variables.$indigo, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-indigo-400 {
+    background-color: rgba(variables.$indigo, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-indigo-500 {
+    background-color: rgba(variables.$indigo, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-indigo-600 {
+    background-color: rgba(variables.$indigo, 0.6);
+    color: variables.$white;
+  }
+  .bd-indigo-700 {
+    background-color: rgba(variables.$indigo, 0.7);
+    color: variables.$white;
+  }
+  .bd-indigo-800 {
+    background-color: rgba(variables.$indigo, 0.8);
+    color: variables.$white;
+  }
+  .bd-indigo-900 {
+    background-color: rgba(variables.$indigo, 0.9);
+    color: variables.$white;
+  }
+  .bd-indigo {
+    background-color: variables.$indigo;
+    color: variables.$white;
+  }
+  /* Start::indigo set */
+  
+  /* Start::purple set */
+  .bd-purple-100 {
+    background-color: rgba(var(--purple-rgb), 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-purple-200 {
+    background-color: rgba(var(--purple-rgb), 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-purple-300 {
+    background-color: rgba(var(--purple-rgb), 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-purple-400 {
+    background-color: rgba(var(--purple-rgb), 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-purple-500 {
+    background-color: rgba(var(--purple-rgb), 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-purple-600 {
+    background-color: rgba(var(--purple-rgb), 0.6);
+    color: variables.$white;
+  }
+  .bd-purple-700 {
+    background-color: rgba(var(--purple-rgb), 0.7);
+    color: variables.$white;
+  }
+  .bd-purple-800 {
+    background-color: rgba(var(--purple-rgb), 0.8);
+    color: variables.$white;
+  }
+  .bd-purple-900 {
+    background-color: rgba(var(--purple-rgb), 0.9);
+    color: variables.$white;
+  }
+  .bd-purple {
+    background-color: variables.$purple;
+    color: variables.$white;
+  }
+  /* Start::purple set */
+  
+  /* Start::pink set */
+  .bd-pink-100 {
+    background-color: rgba(var(--pink-rgb), 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-pink-200 {
+    background-color: rgba(var(--pink-rgb), 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-pink-300 {
+    background-color: rgba(var(--pink-rgb), 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-pink-400 {
+    background-color: rgba(var(--pink-rgb), 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-pink-500 {
+    background-color: rgba(var(--pink-rgb), 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-pink-600 {
+    background-color: rgba(var(--pink-rgb), 0.6);
+    color: variables.$white;
+  }
+  .bd-pink-700 {
+    background-color: rgba(var(--pink-rgb), 0.7);
+    color: variables.$white;
+  }
+  .bd-pink-800 {
+    background-color: rgba(var(--pink-rgb), 0.8);
+    color: variables.$white;
+  }
+  .bd-pink-900 {
+    background-color: rgba(var(--pink-rgb), 0.9);
+    color: variables.$white;
+  }
+  .bd-pink {
+    background-color: variables.$pink;
+    color: variables.$white;
+  }
+  /* Start::pink set */
+  
+  /* Start::red set */
+  .bd-red-100 {
+    background-color: rgba(variables.$red, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-red-200 {
+    background-color: rgba(variables.$red, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-red-300 {
+    background-color: rgba(variables.$red, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-red-400 {
+    background-color: rgba(variables.$red, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-red-500 {
+    background-color: rgba(variables.$red, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-red-600 {
+    background-color: rgba(variables.$red, 0.6);
+    color: variables.$white;
+  }
+  .bd-red-700 {
+    background-color: rgba(variables.$red, 0.7);
+    color: variables.$white;
+  }
+  .bd-red-800 {
+    background-color: rgba(variables.$red, 0.8);
+    color: variables.$white;
+  }
+  .bd-red-900 {
+    background-color: rgba(variables.$red, 0.9);
+    color: variables.$white;
+  }
+  .bd-red {
+    background-color: variables.$red;
+    color: variables.$white;
+  }
+  /* Start::red set */
+  
+  /* Start::orange set */
+  .bd-orange-100 {
+    background-color: rgba(var(--orange-rgb), 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-orange-200 {
+    background-color: rgba(var(--orange-rgb), 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-orange-300 {
+    background-color: rgba(var(--orange-rgb), 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-orange-400 {
+    background-color: rgba(var(--orange-rgb), 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-orange-500 {
+    background-color: rgba(var(--orange-rgb), 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-orange-600 {
+    background-color: rgba(var(--orange-rgb), 0.6);
+    color: variables.$white;
+  }
+  .bd-orange-700 {
+    background-color: rgba(var(--orange-rgb), 0.7);
+    color: variables.$white;
+  }
+  .bd-orange-800 {
+    background-color: rgba(var(--orange-rgb), 0.8);
+    color: variables.$white;
+  }
+  .bd-orange-900 {
+    background-color: rgba(var(--orange-rgb), 0.9);
+    color: variables.$white;
+  }
+  .bd-orange {
+    background-color: variables.$orange;
+    color: variables.$white;
+  }
+  /* Start::orange set */
+  
+  /* Start::yellow set */
+  .bd-yellow-100 {
+    background-color: rgba(variables.$yellow, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-200 {
+    background-color: rgba(variables.$yellow, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-300 {
+    background-color: rgba(variables.$yellow, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-400 {
+    background-color: rgba(variables.$yellow, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-500 {
+    background-color: rgba(variables.$yellow, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-600 {
+    background-color: rgba(variables.$yellow, 0.6);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-700 {
+    background-color: rgba(variables.$yellow, 0.7);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-800 {
+    background-color: rgba(variables.$yellow, 0.8);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow-900 {
+    background-color: rgba(variables.$yellow, 0.9);
+    color: variables.$default-text-color;
+  }
+  .bd-yellow {
+    background-color: variables.$yellow;
+    color: variables.$default-text-color;
+  }
+  /* Start::yellow set */
+  
+  /* Start::green set */
+  .bd-green-100 {
+    background-color: rgba(var(--green-rgb), 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-green-200 {
+    background-color: rgba(var(--green-rgb), 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-green-300 {
+    background-color: rgba(var(--green-rgb), 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-green-400 {
+    background-color: rgba(var(--green-rgb), 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-green-500 {
+    background-color: rgba(var(--green-rgb), 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-green-600 {
+    background-color: rgba(var(--green-rgb), 0.6);
+    color: variables.$white;
+  }
+  .bd-green-700 {
+    background-color: rgba(var(--green-rgb), 0.7);
+    color: variables.$white;
+  }
+  .bd-green-800 {
+    background-color: rgba(var(--green-rgb), 0.8);
+    color: variables.$white;
+  }
+  .bd-green-900 {
+    background-color: rgba(var(--green-rgb), 0.9);
+    color: variables.$white;
+  }
+  .bd-green {
+    background-color: variables.$green;
+    color: variables.$white;
+  }
+  /* Start::green set */
+  
+  /* Start::teal set */
+  .bd-teal-100 {
+    background-color: rgba(var(--teal-rgb), 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-teal-200 {
+    background-color: rgba(var(--teal-rgb), 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-teal-300 {
+    background-color: rgba(var(--teal-rgb), 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-teal-400 {
+    background-color: rgba(var(--teal-rgb), 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-teal-500 {
+    background-color: rgba(var(--teal-rgb), 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-teal-600 {
+    background-color: rgba(var(--teal-rgb), 0.6);
+    color: variables.$white;
+  }
+  .bd-teal-700 {
+    background-color: rgba(var(--teal-rgb), 0.7);
+    color: variables.$white;
+  }
+  .bd-teal-800 {
+    background-color: rgba(var(--teal-rgb), 0.8);
+    color: variables.$white;
+  }
+  .bd-teal-900 {
+    background-color: rgba(var(--teal-rgb), 0.9);
+    color: variables.$white;
+  }
+  .bd-teal {
+    background-color: variables.$teal;
+    color: variables.$white;
+  }
+  /* Start::teal set */
+  
+  /* Start::cyan set */
+  .bd-cyan-100 {
+    background-color: rgba(variables.$cyan, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-cyan-200 {
+    background-color: rgba(variables.$cyan, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-cyan-300 {
+    background-color: rgba(variables.$cyan, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-cyan-400 {
+    background-color: rgba(variables.$cyan, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-cyan-500 {
+    background-color: rgba(variables.$cyan, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-cyan-600 {
+    background-color: rgba(variables.$cyan, 0.6);
+    color: variables.$white;
+  }
+  .bd-cyan-700 {
+    background-color: rgba(variables.$cyan, 0.7);
+    color: variables.$white;
+  }
+  .bd-cyan-800 {
+    background-color: rgba(variables.$cyan, 0.8);
+    color: variables.$white;
+  }
+  .bd-cyan-900 {
+    background-color: rgba(variables.$cyan, 0.9);
+    color: variables.$white;
+  }
+  .bd-cyan {
+    background-color: variables.$cyan;
+    color: variables.$white;
+  }
+  /* Start::cyan set */
+  
+  /* Start::gray set */
+  .bd-gray-100 {
+    background-color: rgba(variables.$gray, 0.1);
+    color: variables.$default-text-color;
+  }
+  .bd-gray-200 {
+    background-color: rgba(variables.$gray, 0.2);
+    color: variables.$default-text-color;
+  }
+  .bd-gray-300 {
+    background-color: rgba(variables.$gray, 0.3);
+    color: variables.$default-text-color;
+  }
+  .bd-gray-400 {
+    background-color: rgba(variables.$gray, 0.4);
+    color: variables.$default-text-color;
+  }
+  .bd-gray-500 {
+    background-color: rgba(variables.$gray, 0.5);
+    color: variables.$default-text-color;
+  }
+  .bd-gray-600 {
+    background-color: rgba(variables.$gray, 0.6);
+    color: variables.$white;
+  }
+  .bd-gray-700 {
+    background-color: rgba(variables.$gray, 0.7);
+    color: variables.$white;
+  }
+  .bd-gray-800 {
+    background-color: rgba(variables.$gray, 0.8);
+    color: variables.$white;
+  }
+  .bd-gray-900 {
+    background-color: rgba(variables.$gray, 0.9);
+    color: variables.$white;
+  }
+  .bd-gray {
+    background-color: variables.$gray;
+    color: variables.$white;
+  }
+  /* Start::gray set */
+  /* Start::Colors */
+
+  /* Start:: filter */
+  [data-theme-mode = "dark"] {
+    .invert-1 {
+      filter : invert(1);
+    }
+  }
+  .backdrop-blur {
+    backdrop-filter: blur(30px);
+  }
+  /* End:: filter */
+  /* End:: background */

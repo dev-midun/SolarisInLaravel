@@ -1,0 +1,120 @@
+@use "../variables";
+/* Start:: badge */
+.app-sidebar .badge {
+    padding: 0.15rem  0.3rem;
+    font-weight: 500;
+    border-radius: 0.25rem;
+}
+.badge {
+    padding: 0.25rem  0.45rem;
+    font-weight: 500;
+    border-radius: 0.25rem;
+    font-size: 11px;
+}
+.badge-sm {
+    font-weight: normal;
+    font-size: 0.625rem;
+}
+.min-w-badge {
+    min-width: 80px;
+}
+.btn {
+    &.btn-outline-primary {
+        .badge {
+            background-color: variables.$primary;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+    &.btn-outline-secondary {
+        .badge {
+            background-color: variables.$secondary;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+    &.btn-outline-warning {
+        .badge {
+            background-color: variables.$warning;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+    &.btn-outline-info {
+        .badge {
+            background-color: variables.$info;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+    &.btn-outline-success {
+        .badge {
+            background-color: variables.$success;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+    &.btn-outline-danger {
+        .badge {
+            background-color: variables.$danger;
+            color: variables.$white;
+        }
+        &:hover,&:focus,&:active {
+            .badge {
+                background-color: variables.$custom-white;
+                color: variables.$default-text-color;
+            }   
+        }
+    }
+}
+.custom-badge {
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+.icon-badge {
+    position: relative;
+    .icon {
+        width: 2rem;
+        height: 2rem;
+        fill: variables.$text-muted;
+        font-size: 2rem;
+    }
+    .badge {
+        position: absolute;
+        inset-inline-end: -0.5rem;
+    }
+}
+.text-badge {
+    position: relative;
+    .badge {
+        position: absolute;
+        inset-inline-end: -1rem;
+        inset-block-start: -1rem;
+    }
+}
+/* End:: badge */

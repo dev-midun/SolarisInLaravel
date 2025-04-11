@@ -1,0 +1,44 @@
+@use "../variables";
+/* Start:: toast */
+.toast {
+  background-color: variables.$custom-white;
+  border: 1px solid variables.$default-border;
+  box-shadow: variables.$box-shadow;
+  border-radius: variables.$default-radius;
+  .toast-header {
+    background-color: variables.$light;
+    padding: 0.375rem 0.75rem;
+    img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  .toast-header {
+    border-bottom: 1px solid variables.$default-border;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    .btn-close {
+      margin-inline-end: 0.125rem;
+    }
+  }
+  .toast-body {
+    font-size: 0.8rem;
+  }
+  .btn-close {
+    font-size: 0.563rem;
+  }
+  &.colored-toast {
+    border: 0 !important;
+    backdrop-filter: blur(20px);
+    .btn-close {
+      filter: invert(1);
+    }
+    .toast-header {
+      border-block-end: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+.bd-example-toasts {
+  min-height: 15rem;
+}
+/* End:: toast */

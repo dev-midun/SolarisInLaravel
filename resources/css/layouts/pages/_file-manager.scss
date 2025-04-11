@@ -1,0 +1,104 @@
+@use "../variables";
+/* Start:: file-manager */
+.file-manager-folders,
+.selected-file-details {
+  background-color: variables.$custom-white;
+}
+
+.folder-svg-container svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.file-details img {
+  width: 150px;
+  height: 150px;
+  background-color: variables.$light;
+  border-radius: 50%;
+}
+
+@media (max-width: 1200px) {
+  .selected-file-details.open {
+    width: 19.5rem;
+    position: absolute;
+    display: block;
+    inset-inline-end: 0;
+    inset-block-start: 0.5rem;
+    box-shadow: 0 0.125rem 0 rgba(10, 10, 10, .04);
+    border-inline-start: 1px solid var(--default-border);
+  }
+}
+
+.file-manager-folders.open {
+  display: block;
+}
+
+@media (max-width: 365px) {
+  .file-manager-container .file-folders-container {
+    max-height: calc(100vh - 12.9rem);
+  }
+}
+
+ul.files-main-nav {
+  margin-block-end: 0;
+
+  li {
+    padding: 0.5rem 0.8rem;
+    border-radius: variables.$default-radius;
+    margin-block-end: 0.08rem;
+
+    &:last-child {
+      margin-block-end: 0;
+    }
+
+    div {
+      color: variables.$text-muted;
+    }
+
+    &:hover {
+      div {
+        color: variables.$primary;
+      }
+    }
+
+    &.active {
+      background-color: variables.$primary-01;
+
+      div {
+        color: variables.$primary;
+      }
+    }
+
+    div.filemanager-upgrade-storage {
+      width: 235px;
+      height: auto;
+      background-color: variables.$light;
+      border: 2px dashed variables.$default-border;
+      border-radius: variables.$default-radius;
+      text-align: center;
+      color: variables.$default-text-color;
+      padding: 1rem;
+
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+}
+#file-manager-storage {
+  .apexcharts-pie line, .apexcharts-pie circle {
+    stroke: transparent;
+  }
+  .apexcharts-datalabels-group {
+    .apexcharts-text.apexcharts-datalabel-label {
+      fill: variables.$text-muted !important;
+    }
+  }
+}
+#file-manager-storage {
+  .apexcharts-datalabels-group .apexcharts-text.apexcharts-datalabel-value {
+    fill: variables.$default-text-color !important;
+  }
+}
+/* End:: file-manager */

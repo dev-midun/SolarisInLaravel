@@ -9,8 +9,36 @@
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^1.2.0",
+        "glob": "^11.0.1",
+        "laravel-vite-plugin": "^1.0",
         "tailwindcss": "^4.0.0",
-        "vite": "^6.2.4"
+        "vite": "^6.0"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "@simonwep/pickr": "^1.9.1",
+        "animejs": "^4.0.1",
+        "apexcharts": "^4.5.0",
+        "bootstrap": "^5.3.5",
+        "cleave.js": "^1.6.0",
+        "dragula": "^3.7.3",
+        "dropzone": "^6.0.0-beta.2",
+        "fg-emoji-picker": "^1.0.1",
+        "flatpickr": "^4.6.13",
+        "fullcalendar": "^6.1.17",
+        "jquery": "^3.7.1",
+        "moment": "^2.30.1",
+        "node-waves": "^0.7.6",
+        "quill": "^2.0.3",
+        "rater-js": "^1.0.1",
+        "select2": "^4.1.0-rc.0",
+        "shepherd.js": "^14.5.0",
+        "simplebar": "^6.3.0",
+        "slick-slider": "^1.8.2",
+        "sortablejs": "^1.15.6",
+        "sweetalert2": "^11.17.2",
+        "swiper": "^11.2.6",
+        "toastify-js": "^1.12.0",
+        "wnumb": "^1.2.0"
     }
 }

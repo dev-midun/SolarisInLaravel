@@ -1,0 +1,16 @@
+@use "../variables";
+/* Start:: input_group */
+.input-group-text {
+    border-color: variables.$input-border;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    background-color: rgb(var(--light-rgb));
+    color: variables.$default-text-color;
+    letter-spacing: 0;
+    .form-control {
+        border: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+}
+/* End:: input_group */

@@ -1,0 +1,329 @@
+@use "../variables";
+/* Start:: navbar */
+.navbar {
+  border-radius: variables.$default-radius;
+  .navbar-nav {
+    .nav-link {
+      line-height: 1;
+      padding: 0.4rem 1rem;
+      font-weight: 500;
+    }
+  }
+  .navbar-toggler {
+    padding: 0.4rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: variables.$custom-black;
+    border: 1px solid variables.$default-border;
+    border-radius: variables.$default-radius;
+    .navbar-toggler-icon {
+      width: 1rem;
+      height: 1rem;
+      position: relative;
+      background-image: none;
+      &:before {
+        content: '\F479';
+        font-family: bootstrap-icons !important;
+        position: absolute;
+        font-size: 1rem;
+        color: variables.$default-text-color;
+        inset-inline-start: 0;
+      }
+    }
+  }
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  color: variables.$custom-black;
+}
+.navbar-brand {
+  margin-inline-end: 1.5rem;
+  img {
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+  &:focus,&:hover {
+    color: variables.$default-text-color;
+  }
+}
+/* Start:: navbar transparent color schemes */
+.navbar-primary-transparent {
+  background-color: variables.$primary-01;
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$primary;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$primary;
+  }
+}
+.navbar-secondary-transparent {
+  background-color: rgba(var(--secondary-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$secondary;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$secondary;
+  }
+}
+.navbar-warning-transparent {
+  background-color: rgba(var(--warning-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$warning;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$warning;
+  }
+}
+.navbar-info-transparent {
+  background-color: rgba(var(--info-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$info;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$info;
+  }
+}
+.navbar-success-transparent {
+  background-color: rgba(var(--success-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$success;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$success;
+  }
+}
+.navbar-danger-transparent {
+  background-color: rgba(var(--danger-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$danger;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$danger;
+  }
+}
+.navbar-dark-transparent {
+  background-color: rgba(var(--dark-rgb), 0.1);
+  color: variables.$default-text-color;
+  .nav-link {
+    &.active {
+      background-color: variables.$custom-black;
+      color: variables.$custom-white !important;
+    }
+    &:hover {
+      color: variables.$default-text-color;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$dark;
+  }
+}
+/* End:: navbar transparent color schemes */
+
+/* Start:: navbar solid color schemes */
+.navbar-primary {
+  background-color: variables.$primary;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-secondary {
+  background-color: variables.$secondary;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-warning {
+  background-color: variables.$warning;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-info {
+  background-color: variables.$info;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-success {
+  background-color: variables.$success;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-danger {
+  background-color: variables.$danger;
+  color: variables.$white;
+  .nav-link {
+    color: variables.$white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$white !important;
+    }
+    &:hover {
+      color: variables.$white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid rgba(255,255,255,0.2);
+      .navbar-toggler-icon:before {
+          color: variables.$white;
+      }
+  }
+}
+.navbar-dark {
+  background-color: variables.$dark;
+  color: variables.$custom-white;
+  .nav-link {
+    color: variables.$custom-white !important;
+    &.active {
+      background-color: variables.$white-2;
+      color: variables.$custom-white !important;
+    }
+    &:hover {
+      color: variables.$custom-white !important;
+    }
+  }
+  .form-control:focus {
+    border-color: variables.$white-2;
+  }
+  .navbar-toggler {
+      border: 1px solid variables.$white-1;
+      .navbar-toggler-icon:before {
+          color: variables.$custom-white;
+      }
+  }
+}
+/* End:: navbar solid color schemes */
+/* End:: navbar */

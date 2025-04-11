@@ -1,0 +1,46 @@
+@use "../variables";
+/* Start:: error */
+.error-bg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    &:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-image: url(../images/media/backgrounds/4.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        inset-inline-end: 0;
+        inset-block-end: 0;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        opacity: 1;
+        z-index: -1;
+    }
+}
+.error-page {
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.error-text {
+    font-size: 11rem;
+    font-weight: 500;
+    line-height: 1;
+}
+@media (max-width: 575.98px) {
+    .error-text {
+        font-size: 3rem;
+    }
+}
+/* End:: error */

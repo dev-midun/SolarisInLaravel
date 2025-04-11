@@ -1,0 +1,104 @@
+@use "../variables";
+/* Start:: breadcrumb */
+/* Start:: Breadcrumb Styles */
+.page-header-breadcrumb {
+  margin-block: 1.75rem;
+  .breadcrumb-item+.breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider, "\f2e5");
+    font-family: "remixicon" !important;
+  }
+}
+[dir="rtl"] {
+  .page-header-breadcrumb {
+    .breadcrumb-item+.breadcrumb-item::before {
+      content: var(--bs-breadcrumb-divider, "\f2e3");
+      font-family: "remixicon" !important;
+    }
+  }
+  .breadcrumb-example1 {
+    .breadcrumb-item+.breadcrumb-item::before {
+      content: var(--bs-breadcrumb-divider, "\ea64");
+    }
+  }
+}
+.breadcrumb {
+  .breadcrumb-item {
+    a {
+      color: variables.$primary;
+    }
+
+    &.active {
+      color: variables.$default-text-color;
+      font-weight: 500;
+    }
+  }
+}
+.page-header-breadcrumb {
+  .breadcrumb-icon svg{
+    width: 1rem;
+    height: 1rem;
+  }
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  color: variables.$text-muted;
+}
+.breadcrumb-example1 {
+  .breadcrumb-item+.breadcrumb-item::before {
+    color: variables.$text-muted;
+    content: var(--bs-breadcrumb-divider, "\ea65");
+    font-family: "tabler-icons" !important;
+  }
+}
+.breadcrumb-style1 {
+  .breadcrumb-item+.breadcrumb-item::before {
+    color: variables.$text-muted;
+    content: var(--bs-breadcrumb-divider, "\ea1c");
+    font-family: "tabler-icons" !important;
+  }
+}
+.breadcrumb-style2 {
+  .breadcrumb-item+.breadcrumb-item::before {
+    color: variables.$text-muted;
+    content: var(--bs-breadcrumb-divider, "\ea61");
+    font-family: "tabler-icons" !important;
+  }
+}
+.embedded-breadcrumb:before {
+  opacity: 0.7;
+}
+[data-theme-mode="dark"] {
+  .embedded-breadcrumb:before {
+    filter: invert(1);
+  }
+}
+[dir="rtl"] {
+.breadcrumb-style1 {
+  .breadcrumb-item+.breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider, "\ea1b");
+  }
+}
+.breadcrumb-style2 {
+  .breadcrumb-item+.breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider, "\ea60");
+  }
+}
+.embedded-breadcrumb:before {
+  transform: scaleX(-1);
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0rem !important;
+}
+}
+/* End:: Breadcrumb Styles */
+
+/* Start:: Breadcrumb input */
+.page-header-breadcrumb input.breadcrumb-input{
+  min-width: 13.5rem;
+  max-width: 13.5rem;
+  border: 1px solid variables.$default-border;
+  &:focus {
+    border: 1px solid variables.$default-border;
+    box-shadow: none;
+  }
+}
+/* End:: Breadcrumb input */
+/* End:: breadcrumb */

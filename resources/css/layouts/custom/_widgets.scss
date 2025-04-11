@@ -1,0 +1,25 @@
+@use "../variables";
+/* Start:: widgets */
+#chart-11, #chart-12, #chart-13, #chart-14 {
+    position: absolute;
+    bottom: 0;
+    inset-inline-end: 0;
+}
+ul.top-customers {
+    margin-block-end: 0;
+    li {
+        margin-block-end: 1.44rem;
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+}
+#chart-15 {
+    .apexcharts-xaxis line, .apexcharts-grid-borders line {
+        stroke: transparent;
+    } 
+}
+.circle-chart-widget {
+    height: 16.8rem;
+}
+/* End:: widgets */

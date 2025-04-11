@@ -1,0 +1,735 @@
+@use "../variables";
+/* Start:: ribbons */
+.ribbon {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+  }
+  
+  .ribbon span {
+    position: absolute;
+    display: block;
+    width: 120px;
+    padding: 6px 0;
+    z-index: 2;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    color: variables.$white;
+    font: 500 12px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .ribbon.ribbon-primary {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$primary;
+    }
+  } 
+  .ribbon.ribbon-secondary {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$secondary;
+    }
+  } 
+  .ribbon.ribbon-warning {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$warning;
+    }
+  } 
+  .ribbon.ribbon-info {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$info;
+    }
+  } 
+  .ribbon.ribbon-success {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$success;
+    }
+  } 
+  .ribbon.ribbon-danger {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$danger;
+    }
+  } 
+  .ribbon.ribbon-orange {
+    &:before,&:after {
+      border: 3px solid variables.$black-6;
+    }
+    span {
+      background-color: variables.$orange;
+    }
+  } 
+  
+  /* top left */
+  .ribbon-top-left {
+    top: -7px;
+    inset-inline-start: -7px;
+  }
+  
+  .ribbon-top-left::before,
+  .ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  
+  .ribbon-top-left::before {
+    top: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+  
+  .ribbon-top-left::after {
+    bottom: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+  
+  .ribbon-top-left span {
+    inset-inline-end: -12px;
+    top: 20px;
+    transform: rotate(-45deg);
+  }
+  [dir="rtl"] {
+    .ribbon-top-left span {
+      transform: rotate(45deg);
+    }
+  }
+  
+  /* top left */
+  
+  /* top right */
+  .ribbon-top-right {
+    top: -7px;
+    inset-inline-end: -7px;
+  }
+  
+  .ribbon-top-right::before,
+  .ribbon-top-right::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+  
+  .ribbon-top-right::before {
+    top: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+  
+  .ribbon-top-right::after {
+    bottom: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+  
+  .ribbon-top-right span {
+    inset-inline-start: -12px;
+    top: 20px;
+    transform: rotate(45deg);
+  }
+  [dir="rtl"] {
+    .ribbon-top-right span {
+      transform: rotate(315deg);
+    }
+  }
+  
+  /* top right */
+  
+  /* bottom right */
+  .ribbon-bottom-right {
+    bottom: -7px;
+    inset-inline-end: -7px;
+  }
+  .ribbon-bottom-right::before,
+  .ribbon-bottom-right::after {
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+  }
+  .ribbon-bottom-right::before {
+    bottom: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+  .ribbon-bottom-right::after {
+    top: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+  .ribbon-bottom-right span {
+    inset-inline-start: -12px;
+    bottom: 20px;
+    transform: rotate(-225deg);
+  }
+  [dir="rtl"] {
+    .ribbon-bottom-right span {
+      transform: rotate(225deg);
+    }
+  }
+  /* bottom right */
+  
+  /* bottom left */
+  .ribbon-bottom-left {
+    bottom: -7px;
+    inset-inline-start: -7px;
+  }
+  .ribbon-bottom-left::before,
+  .ribbon-bottom-left::after {
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-bottom-left::before {
+    bottom: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+  .ribbon-bottom-left::after {
+    top: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+  .ribbon-bottom-left span {
+    inset-inline-end: -12px;
+    bottom: 20px;
+    transform: rotate(225deg);
+  }
+  [dir="rtl"] {
+    .ribbon-bottom-left span {
+      transform: rotate(-225deg);
+    }
+  }
+  /* bottom left */
+  
+  /* ribbon 2 */
+  .ribbon-2 {
+    display: inline-block;
+    color: variables.$white;
+    position: absolute;
+    &.ribbon-primary {
+      background: variables.$primary-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-secondary {
+      background: variables.$secondary-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-success {
+      background: variables.$success-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-info {
+      background: variables.$info-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-warning {
+      background: variables.$warning-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-danger {
+      background: variables.$danger-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-orange {
+      background: variables.$orange-gradient;
+      &:before {
+        border-top: 10px solid variables.$black-8;
+      }
+    }
+    &.ribbon-left {
+      padding: 5px 40px 5px 20px;
+      top: 10px;
+      inset-inline-start: -10px;
+      &:after {
+        border-inline-end: 12px solid variables.$custom-white;
+        border-top: 14px solid transparent;
+        border-bottom: 16px solid transparent;
+        inset-inline-end: 0;
+        top: 0;
+      }
+      &:before {
+        border-inline-start: 10px solid transparent;
+        inset-inline-start: 0;
+        bottom: -10px;
+      }
+    }
+    &.ribbon-right {
+      padding: 5px 20px 5px 40px;
+      top: 10px;
+      inset-inline-end: -10px;
+      &:after {
+        border-inline-start: 12px solid variables.$custom-white;
+        border-top: 14px solid transparent;
+        border-bottom: 16px solid transparent;
+        inset-inline-start: 0;
+        top: 0;
+      }
+      &:before {
+        border-inline-end: 10px solid transparent;
+        inset-inline-end: 0;
+        bottom: -10px;
+      }
+    }
+  }
+  .ribbon-2:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  .ribbon-2:before {
+    height: 0;
+    width: 0;
+    position: absolute;
+    content: "";
+  }
+  /* ribbon 2 */
+  
+  /* ribbon 3 */
+  [dir="rtl"] {
+    .ribbon-3 {
+      &.top-left {
+        span:after {
+          border-radius: 50px 0 0 0;
+        }
+      }
+      &.top-right {
+        span:after {
+          border-radius: 0 50px 0 0;
+        }
+      }
+    }
+  }
+  .ribbon-3 {
+    position: absolute;
+    inset-block-start: -8px;
+    color: variables.$white;
+    &.top-left {
+      border-start-start-radius: 10px;
+      inset-inline-start: 10px;
+      span {
+        &:after {
+          inset-inline-end: -7px;
+          border-radius: 0 50px 0 0;
+        }
+      }
+    }
+    &.top-right {
+      border-start-end-radius: 10px;
+      inset-inline-end: 10px;
+      span {
+        &:after {
+          inset-inline-start: -7px;
+          border-radius: 50px 0 0 0;
+        }
+      }
+    }
+    span {
+      position: relative;
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1;
+      padding: 10px;
+      z-index: 6;
+      width: 33px;
+      &:after {
+        position: absolute;
+        content: "";
+        height: 7px;
+        width: 7px;
+        inset-block-start: 0;
+      }
+    }
+    &:after {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      border-inline-start: 16px solid transparent;
+      border-inline-end: 17px solid transparent;
+      z-index: 6;
+    }
+    &.ribbon-success {
+      background: rgba(var(--success-rgb), 1);
+      span {
+        &:after {
+          background: #0d9b80;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--success-rgb), 1);
+      }
+    }
+    &.ribbon-primary {
+      background: rgba(var(--primary-rgb), 1);
+      span {
+        &:after {
+          background: variables.$primary;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--primary-rgb), 1);
+      }
+    }
+    &.ribbon-secondary {
+      background: rgba(var(--secondary-rgb), 1);
+      span {
+        &:after {
+          background: #a017d1;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--secondary-rgb), 1);
+      }
+    }
+    &.ribbon-warning {
+      background: rgba(var(--warning-rgb), 1);
+      span {
+        &:after {
+          background: #d98415;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--warning-rgb), 1);
+      }
+    }
+    &.ribbon-info {
+      background: rgba(var(--info-rgb), 1);
+      span {
+        &:after {
+          background: #148fc7;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--info-rgb), 1);
+      }
+    }
+    &.ribbon-danger {
+      background: rgba(var(--danger-rgb), 1);
+      span {
+        &:after {
+          background: #d31236;
+        }
+      }
+      &:after {
+        border-block-start: 10px solid rgba(var(--danger-rgb), 1);
+      }
+    }
+  }
+  /* ribbon 3 */
+  
+  /* ribbon 4 */
+  .ribbon-4 {
+    position: absolute;
+    inset-block-start: 0;
+    color: variables.$white;
+    width: 30px;
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.1);
+    span {
+      position: relative;
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1;
+      padding: 12px 2px;
+      z-index: 6;
+    }
+    &.top-left {
+      inset-inline-start: 10px;
+      &:after {
+        inset-inline-start: 0;
+      }
+    }
+    &.top-right {
+      inset-inline-end: 10px;
+      &:after {
+        inset-inline-end: 0;
+      }
+    }
+    &:after {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      z-index: 6;
+      border-block-end: 8px solid transparent;
+    }
+    &.ribbon-primary {
+      span {
+        background: variables.$primary;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$primary;
+        border-inline-end: 15px solid variables.$primary;
+      }
+    }
+    &.ribbon-secondary {
+      span {
+        background: variables.$secondary;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$secondary;
+        border-inline-end: 15px solid variables.$secondary;
+      }
+    }
+    &.ribbon-warning {
+      span {
+        background: variables.$warning;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$warning;
+        border-inline-end: 15px solid variables.$warning;
+      }
+    }
+    &.ribbon-info {
+      span {
+        background: variables.$info;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$info;
+        border-inline-end: 15px solid variables.$info;
+      }
+    }
+    &.ribbon-success {
+      span {
+        background: variables.$success;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$success;
+        border-inline-end: 15px solid variables.$success;
+      }
+    }
+    &.ribbon-danger {
+      span {
+        background: variables.$danger;
+      }
+      &:after {
+        border-inline-start: 15px solid variables.$danger;
+        border-inline-end: 15px solid variables.$danger;
+      }
+    }
+  }
+  /* ribbon 4 */
+  
+  /* ribbon 5 */
+  .ribbon-5 {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    color: variables.$white;
+    font-size: 12px;
+    padding: 5px;
+    font-weight: 600;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    box-shadow: 1px 1px 16px rgba(0,0,0,0.2);
+    &.ribbon-primary {
+      background-color: variables.$primary;
+    }
+    &.ribbon-secondary {
+      background-color: variables.$secondary;
+    }
+    &.ribbon-warning {
+      background-color: variables.$warning;
+    }
+    &.ribbon-info {
+      background-color: variables.$info;
+    }
+    &.ribbon-success {
+      background-color: variables.$success;
+    }
+    &.ribbon-danger {
+      background-color: variables.$danger;
+    }
+    &.ribbon-dark {
+      background-color: variables.$dark;
+    }
+    &.ribbon-orange {
+      background-color: variables.$orange;
+    }
+    &.top-left {
+      top: -2.8125rem;
+      inset-inline-start: -2.8125rem;
+      transform: rotate(315deg);
+    }
+    &.top-right {
+      top: -2.8125rem;
+      inset-inline-end: -2.8125rem;
+      transform: rotate(45deg);
+    }
+    &.bottom-left {
+      bottom: -2.8125rem;
+      inset-inline-start: -2.8125rem;
+      transform: rotate(225deg);
+    }
+    &.bottom-right {
+      bottom: -2.8125rem;
+      inset-inline-end: -2.8125rem;
+      transform: rotate(135deg);
+    }
+  }
+  [dir="rtl"] {
+    .ribbon-5 {
+      &.top-left {
+        transform: rotate(-315deg);
+      }
+      &.top-right {
+        transform: rotate(-45deg);
+      }
+      &.bottom-left {
+        transform: rotate(-225deg);
+      }
+      &.bottom-right {
+        transform: rotate(-135deg);
+      }
+    }
+  }
+  /* ribbon 5 */
+  
+  /* ribbon-6 */
+  .ribbon-6 {
+    color: variables.$white;
+    padding: 2px 8px;
+    position: absolute;
+    inset-block-start: 10px;
+    z-index: 6;
+    font-size: 13px;
+    box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.2);
+    &.ribbon-primary {
+      background-color: variables.$primary;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$primary;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$primary;
+      }
+    }
+    &.ribbon-secondary {
+      background-color: variables.$secondary;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$secondary;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$secondary;
+      }
+    }
+    &.ribbon-warning {
+      background-color: variables.$warning;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$warning;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$warning;
+      }
+    }
+    &.ribbon-info {
+      background-color: variables.$info;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$info;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$info;
+      }
+    }
+    &.ribbon-success {
+      background-color: variables.$success;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$success;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$success;
+      }
+    }
+    &.ribbon-danger {
+      background-color: variables.$danger;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$danger;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$danger;
+      }
+    }
+    &.ribbon-dark {
+      background-color: variables.$dark;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$dark;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$dark;
+      }
+    }
+    &.ribbon-orange {
+      background-color: variables.$orange;
+      &.ribbon-left:after {
+        border-inline-start: 12px solid variables.$orange;
+      }
+      &.ribbon-right:after {
+        border-inline-end: 12px solid variables.$orange;
+      }
+    }
+    &.ribbon-left {
+      inset-inline-start: 0;
+      &:after {
+        content: "";
+        position: absolute;
+        inset-block-start: 0;
+        inset-block-end: 0;
+        inset-inline-end: -12px;
+        border-block-start: 12px solid transparent;
+        border-block-end: 11px solid transparent;
+        width: 0;
+      }
+    }
+    &.ribbon-right {
+      inset-inline-end: 0;
+      &:after {
+        content: "";
+        position: absolute;
+        inset-block-start: 0;
+        inset-block-end: 0;
+        inset-inline-start: -12px;
+        border-block-end: 12px solid transparent;
+        border-block-start: 11px solid transparent;
+        width: 0;
+      }
+    }
+  }
+  /* ribbon-6 */
+  /* End:: ribbons */
