@@ -1,0 +1,63 @@
+.solar-table th.orderable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 1.5rem;
+    transition: color 0.2s ease;
+}
+
+.solar-table .sort-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.solar-table .sort-icon i {
+    fill: #6c757d;
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+}
+
+.solar-table .sort-icon-asc,
+.solar-table .sort-icon-desc {
+    display: none
+}
+
+.solar-table th.orderable:hover .sort-icon,
+.solar-table th.orderable.sorted .sort-icon {
+    opacity: 1;
+}
+
+.solar-table th.sorted-asc .sort-icon .sort-icon-asc,
+.solar-table th.sorted-desc .sort-icon .sort-icon-desc {
+    display: block;
+    opacity: 1;
+    fill: #000;
+}
+
+.solar-table th.sorted-asc .sort-icon-hover,
+.solar-table th.sorted-desc .sort-icon-hover {
+    display: none;
+}
+
+.solar-table tbody.fade-out {
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+}
+
+.solar-table tbody.fade-in {
+    opacity: 0;
+    animation: fadeIn 150ms ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}

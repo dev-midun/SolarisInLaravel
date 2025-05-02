@@ -1,0 +1,65 @@
+.profile-picture {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-picture img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    height: 6rem;
+    width: 6rem;
+}
+
+.profile-picture-sm {
+    height: 4.5rem !important;
+    width: 4.5rem !important;
+}
+
+.profile-picture-lg {
+    height: 7.5rem !important;
+    width: 7.5rem !important;
+}
+
+.profile-picture .profile-picture-upload,
+.profile-picture .profile-picture-upload label {
+    position: absolute;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+}
+
+.profile-picture .profile-picture-upload label > span {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #fff;
+    display: -webkit-box;
+    display: flex;
+    font-weight: 500;
+    height: 100%;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-picture .profile-picture-upload input[type="file"] {
+    display: none;
+}
+
+.cropper-img-container {
+    max-height: 497px !important;
+    min-height: 200px !important;
+}
+
+@media (min-width: 768px) {
+    .cropper-img-container {
+        min-height: 497px !important;
+    }
+}
+
+.cropper-img-container > img {
+    max-width: 100% !important;
+}

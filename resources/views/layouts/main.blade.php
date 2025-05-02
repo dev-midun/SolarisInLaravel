@@ -5,7 +5,7 @@
 
 <div class="page">
     @include('layouts.partials.header')
-    @include('layouts.partials.sidebar')
+    <x-sidebar :menus="\App\Models\Menu::getAll()" />
 
     <!-- Start::app-content -->
     <div class="main-content app-content">
@@ -14,35 +14,36 @@
             <!-- Page Header -->
             <div class="d-flex align-items-center justify-content-between page-header-breadcrumb flex-wrap gap-2">
                 <div>
-                    <nav>
-                        <ol class="breadcrumb mb-1">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Empty</li>
-                        </ol>
-                    </nav>
-                    <h1 class="page-title fw-medium fs-18 mb-0">Empty</h1>
+
+                    @if (isset($breadcrumbs))
+                        <x-breadcrumb :items="$breadcrumbs"/>
+                    @else
+                        @yield('breadcrumb')
+                    @endif
+
+                    <h1 class="page-title fw-medium fs-18 mb-0">
+                        @if (isset($title))
+                            {{ $title }}
+                        @else
+                            @yield('page-title')
+                        @endif
+                    </h1>
                 </div>
                 <div class="btn-list">
-                    <button class="btn btn-primary-light btn-wave">
+                    @yield('top-buttons')
+
+                    {{-- <button class="btn btn-primary-light btn-wave">
                         <i class="ri-upload-cloud-line align-middle me-1"></i> Export report
                     </button>
                     <button class="btn btn-info-light btn-wave me-0">
                         <i class="bx bx-crown align-middle me-1"></i> Upgrade plan
-                    </button>
+                    </button> --}}
                 </div>
             </div>
             <!-- Page Header Close -->
 
             <!-- Start::row-1 -->
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card custom-card">
-                        <div class="card-body">
-                            <h6 class="mb-0">EMPTY CARD</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @yield('content')
             <!--End::row-1 -->
 
         </div>

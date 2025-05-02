@@ -9,7 +9,7 @@
     data-toggled="close">
 
     <head>
-        <title>Solaris</title>
+        <title>@yield('title', 'Solaris UI')</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="author" content="Solaris" />
@@ -35,7 +35,9 @@
     </head>
     <body>
         @yield('layout-content')
+        @stack('modal-content')
         
+        <script src="https://cdn.lordicon.com/lordicon.js"></script>
         @stack('scripts')
     </body>
 </html>

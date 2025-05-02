@@ -10,3 +10,31 @@
 @import "dropzone/dist/dropzone.css";
 @import "quill/dist/quill.core.css";
 @import "quill/dist/quill.snow.css";
+@import 'dropzone/dist/dropzone.css';
+@import "./solaris/table.scss";
+@import "./solaris/stage-buttons.scss";
+@import "./solaris/profile-picture.scss";
+
+.form-control.is-invalid+a.show-password-button, .form-control.is-valid+a.show-password-button {
+    padding-right: 2rem !important;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    font-family: var(--default-font-family) !important;
+}
+
+select.form-select.is-invalid + span.select2-container .selection .select2-selection .select2-selection__rendered {
+    border-color: var(--bs-form-invalid-border-color) !important;
+}
+
+select.form-select.is-valid + span.select2-container .selection .select2-selection .select2-selection__rendered {
+    border-color: var(--bs-form-valid-border-color) !important;
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.dropzone {
+    min-height: 100px !important;
+}

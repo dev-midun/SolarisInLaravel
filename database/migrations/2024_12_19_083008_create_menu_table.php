@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->string('route_name')->nullable();
             $table->string('icon')->nullable();
+            $table->boolean('category')->nullable()->default(false);
             $table->foreignUuid('parent_id')->nullable()->constrained('menu');
+            $table->foreignUuid('category_id')->nullable()->constrained('menu');
         });
 
         Schema::create('role_has_menu', function(Blueprint $table) {

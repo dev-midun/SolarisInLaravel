@@ -31,11 +31,6 @@ return new class extends Migration
             $table->foreignUuid('city_id')->nullable()->constrained('city');
             $table->foreignUuid('province_id')->nullable()->constrained('province');
             $table->foreignUuid('country_id')->nullable()->constrained('country');
-            $table->foreignUuid('company_city_id')->nullable()->constrained('city');
-            $table->foreignUuid('company_province_id')->nullable()->constrained('province');
-            $table->foreignUuid('company_country_id')->nullable()->constrained('country');
-            $table->text('company_address')->nullable();
-            $table->string('company_postcode', 10)->nullable();
         });
     }
 

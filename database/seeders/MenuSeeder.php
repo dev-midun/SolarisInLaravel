@@ -2,216 +2,378 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menu;
-use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\Models\RoleHasMenu;
 
 class MenuSeeder extends Seeder
 {
-    private $data = [];
+    private $componentId;
+    private $accountId;
+    private $contactId;
+    private $activityId;
+    private $componentFormId;
 
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Home',
-            url: '/',
-            routeName: 'home',
-            icon: 'ri-home-heart-line',
-            position: 1
-        );
+        $this->componentId = (string)Str::orderedUuid();
+        $this->accountId = (string)Str::orderedUuid();
+        $this->contactId = (string)Str::orderedUuid();
+        $this->activityId = (string)Str::orderedUuid();
+        $this->componentFormId = (string)Str::orderedUuid();
 
-        DB::table('menu')->insert($this->data);
+        $componentCategoryId = (string)Str::orderedUuid();
+        $exampleCategoryId = (string)Str::orderedUuid();
+        $setupCategoryId = (string)Str::orderedUuid();
 
-        $this->supervisorRoleMenu();
-        $this->adminRoleMenu();
-        $this->userRoleMenu();
-    }
-
-    protected function supervisorMenu()
-    {
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Users',
-            url: '/users',
-            routeName: 'users',
-            icon: 'menu-icon tf-icons ti ti-users-group',
-            position: 2
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Payments',
-            url: '/payments',
-            routeName: 'payments',
-            icon: 'menu-icon tf-icons ti ti-database-dollar',
-            position: 3
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'License',
-            url: '/license',
-            routeName: 'license',
-            icon: 'menu-icon tf-icons ti ti-license',
-            position: 4
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Lookups',
-            url: '/lookups',
-            routeName: 'lookups',
-            icon: 'menu-icon tf-icons ti ti-database-search',
-            position: 5
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Setups',
-            url: '/setups',
-            routeName: 'setups',
-            icon: 'menu-icon tf-icons ti ti-settings-cog',
-            position: 6
-        );
-    }
-
-    protected function adminMenu()
-    {
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Home',
-            url: '/admin',
-            routeName: 'admin.home',
-            icon: 'menu-icon tf-icons ti ti-home',
-            position: 1
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Users',
-            url: '/admin/users',
-            routeName: 'admin.users',
-            icon: 'menu-icon tf-icons ti ti-users-group',
-            position: 2
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Billing & Plans',
-            url: '/admin/billing',
-            routeName: 'admin.billing',
-            icon: 'menu-icon tf-icons ti ti-cash-register',
-            position: 3
-        );
-    }
-
-    protected function userMenu()
-    {
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Accounts',
-            url: '/accounts',
-            routeName: 'accounts',
-            icon: 'menu-icon tf-icons ti ti-buildings',
-            position: 2
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Contacts',
-            url: '/contacts',
-            routeName: 'contacts',
-            icon: 'menu-icon tf-icons ti ti-user',
-            position: 3
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Products',
-            url: '/products',
-            routeName: 'products',
-            icon: 'menu-icon tf-icons ti ti-packages',
-            position: 4
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Leads',
-            url: '/leads',
-            routeName: 'leads',
-            icon: 'menu-icon tf-icons ti ti-users',
-            position: 5
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Opportunities',
-            url: '/opportunities',
-            routeName: 'opportunities',
-            icon: 'menu-icon tf-icons ti ti-target-arrow',
-            position: 6
-        );
-        $this->add(
-            id: (string) Str::orderedUuid(),
-            name: 'Activities',
-            url: '/activities',
-            routeName: 'activities',
-            icon: 'menu-icon tf-icons ti ti-calendar-time',
-            position: 7
-        );
-    }
-    
-    protected function supervisorRoleMenu()
-    {
-        $role = Role::findByName('Supervisor');
-        
-        $routes = ['home', 'users', 'payments', 'license', 'lookups', 'setups'];
-        $menu = Menu::select('id')->whereIn('route_name', $routes)->get();
-        foreach ($menu as $value) {
-            RoleHasMenu::create([
-                'role_id' => $role->id,
-                'menu_id' => $value->id
-            ]);
-        }
-    }
-
-    protected function adminRoleMenu()
-    {
-        $role = Role::findByName('Admin');
-        
-        $routes = ['admin.home', 'admin.users', 'admin.billing'];
-        $menu = Menu::select('id')->whereIn('route_name', $routes)->get();
-        foreach ($menu as $value) {
-            RoleHasMenu::create([
-                'role_id' => $role->id,
-                'menu_id' => $value->id
-            ]);
-        }
-    }
-
-    protected function userRoleMenu()
-    {
-        $role = Role::findByName('User');
-        
-        $routes = ['home', 'accounts', 'contacts', 'products', 'leads', 'opportunities', 'activities'];
-        $menu = Menu::select('id')->whereIn('route_name', $routes)->get();
-        foreach ($menu as $value) {
-            RoleHasMenu::create([
-                'role_id' => $role->id,
-                'menu_id' => $value->id
-            ]);
-        }
-    }
-
-    protected function add($id, $name, $url, $icon, $routeName = null, $position = null, $parent_id = null)
-    {
-        $position = !isset($position) ? count($this->data) : $position;
-        $this->data[] = [
-            'id' => $id,
-            'name' => $name,
-            'url' => $url,
-            'icon' => $icon,
-            'position' => $position,
-            'route_name' => $routeName,
-            'parent_id' => $parent_id
+        $data = [
+            [
+                "id" => $componentCategoryId,
+                "name" => "Component UI",
+                "url" => null,
+                "icon" => null,
+                "position" => 1,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => true,
+                "category_id" => null
+            ],
+            [
+                "id" => $this->componentId,
+                "name" => "Component",
+                "url" => "",
+                "icon" => "bx bx-component",
+                "position" => 2,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $componentCategoryId
+            ],
+            [
+                "id" => $exampleCategoryId,
+                "name" => "Example App",
+                "url" => null,
+                "icon" => null,
+                "position" => 3,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => true,
+                "category_id" => null
+            ],
+            [
+                "id" => $this->accountId,
+                "name" => "Account",
+                "url" => null,
+                "icon" => "bx bx-buildings",
+                "position" => 4,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $exampleCategoryId,
+            ],
+            [
+                "id" => $this->contactId,
+                "name" => "Contact",
+                "url" => null,
+                "icon" => "bx bxs-user-account",
+                "position" => 5,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $exampleCategoryId
+            ],
+            [
+                "id" => $this->activityId,
+                "name" => "Activity",
+                "url" => null,
+                "icon" => "bx bx-calendar",
+                "position" => 6,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $exampleCategoryId
+            ],
+            [
+                "id" => $setupCategoryId,
+                "name" => "Setup",
+                "url" => null,
+                "icon" => null,
+                "position" => 7,
+                "route_name" => null,
+                "parent_id" => null,
+                "category" => true,
+                "category_id" => null
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Menu",
+                "url" => "/setup/menu",
+                "icon" => "bx bx-menu",
+                "position" => 8,
+                "route_name" => "setup.menu",
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $setupCategoryId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Access Right",
+                "url" => "/setup/access-right",
+                "icon" => "bx bx-accessibility",
+                "position" => 9,
+                "route_name" => "setup.access_right",
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $setupCategoryId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Lookup",
+                "url" => "/setup/lookup",
+                "icon" => "bx bx-data",
+                "position" => 10,
+                "route_name" => "setup.lookup",
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $setupCategoryId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "User",
+                "url" => "/setup/user",
+                "icon" => "bx bx-user",
+                "position" => 11,
+                "route_name" => "setup.user",
+                "parent_id" => null,
+                "category" => false,
+                "category_id" => $setupCategoryId
+            ],
         ];
+        DB::table('menu')->insert($data);
+
+        $this->component_menu();
+        $this->form_menu();
+        $this->account_menu();
+        $this->contact_menu();
+        $this->activity_menu();
+    }
+
+    protected function component_menu(): void
+    {
+        $data = [
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Button",
+                "url" => "/components/button",
+                "icon" => "bx bxs-component",
+                "position" => 1,
+                "route_name" => "components.button",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => $this->componentFormId,
+                "name" => "Form",
+                "url" => null,
+                "icon" => null,
+                "position" => 2,
+                "route_name" => null,
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Table",
+                "url" => "/components/table",
+                "icon" => null,
+                "position" => 3,
+                "route_name" => "components.table",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Attachment",
+                "url" => "/components/attachment",
+                "icon" => null,
+                "position" => 4,
+                "route_name" => "components.attachment",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Notes",
+                "url" => "/components/notes",
+                "icon" => null,
+                "position" => 5,
+                "route_name" => "components.notes",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Stages",
+                "url" => "/components/stages",
+                "icon" => null,
+                "position" => 6,
+                "route_name" => "components.stages",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Calendar",
+                "url" => "/components/calendar",
+                "icon" => null,
+                "position" => 7,
+                "route_name" => "components.calendar",
+                "parent_id" => $this->componentId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Others",
+                "url" => "/components/others",
+                "icon" => null,
+                "position" => 8,
+                "route_name" => "components.others",
+                "parent_id" => $this->componentId
+            ]
+        ];
+        DB::table('menu')->insert($data);
+    }
+
+    protected function form_menu(): void
+    {
+        $data = [
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Input text",
+                "url" => "/components/form/input",
+                "icon" => null,
+                "position" => 1,
+                "route_name" => "components.form.input",
+                "parent_id" => $this->componentFormId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Select and Combobox",
+                "url" => "/components/form/select-combobox",
+                "icon" => null,
+                "position" => 2,
+                "route_name" => "components.form.select_combobox",
+                "parent_id" => $this->componentFormId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Checkbox and Radio",
+                "url" => "/components/form/checkbox-radio",
+                "icon" => null,
+                "position" => 3,
+                "route_name" => "components.form.checkbox_radio",
+                "parent_id" => $this->componentFormId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Date Picker",
+                "url" => "/components/form/date-picker",
+                "icon" => null,
+                "position" => 4,
+                "route_name" => "components.form.date_picker",
+                "parent_id" => $this->componentFormId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Field",
+                "url" => "/components/form/field",
+                "icon" => null,
+                "position" => 5,
+                "route_name" => "components.form.field",
+                "parent_id" => $this->componentFormId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Form",
+                "url" => "/components/form/form",
+                "icon" => null,
+                "position" => 6,
+                "route_name" => "components.form.form",
+                "parent_id" => $this->componentFormId
+            ],
+        ];
+        DB::table('menu')->insert($data);
+    }
+
+    protected function account_menu(): void
+    {
+        $data = [
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "List",
+                "url" => "/exampla/account/list",
+                "icon" => null,
+                "position" => 1,
+                "route_name" => "example.account.list",
+                "parent_id" => $this->accountId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Edit page",
+                "url" => "/example/account/edit-page",
+                "icon" => null,
+                "position" => 2,
+                "route_name" => "example.account.edit_page",
+                "parent_id" => $this->accountId
+            ]
+        ];
+        DB::table('menu')->insert($data);
+    }
+
+    protected function contact_menu(): void
+    {
+        $data = [
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "List",
+                "url" => "/example/contact/list",
+                "icon" => null,
+                "position" => 1,
+                "route_name" => "example.contact.list",
+                "parent_id" => $this->contactId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Edit page",
+                "url" => "/example/contact/edit-page",
+                "icon" => null,
+                "position" => 2,
+                "route_name" => "example.contact.edit_page",
+                "parent_id" => $this->contactId
+            ]
+        ];
+        DB::table('menu')->insert($data);
+    }
+
+    protected function activity_menu(): void
+    {
+        $data = [
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "List",
+                "url" => "/example/activity/list",
+                "icon" => null,
+                "position" => 1,
+                "route_name" => "example.activity.list",
+                "parent_id" => $this->activityId
+            ],
+            [
+                "id" => (string)Str::orderedUuid(),
+                "name" => "Edit page",
+                "url" => "/example/activity/edit-page",
+                "icon" => null,
+                "position" => 2,
+                "route_name" => "example.activity.edit_page",
+                "parent_id" => $this->activityId
+            ]
+        ];
+        DB::table('menu')->insert($data);
     }
 }

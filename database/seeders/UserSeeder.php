@@ -17,19 +17,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->supervisor();
         $this->admin();
         $this->user();
-    }
-
-    protected function supervisor(): void
-    {
-        $user = User::create([
-            'name' => 'Supervisor',
-            'email' => 'supervisor@sunny.co.id',
-            'password' => Hash::make('Supervisor')
-        ]);
-        $user->assignRole('Supervisor');
     }
 
     protected function admin(): void
@@ -37,13 +26,13 @@ class UserSeeder extends Seeder
         $now = Carbon::now();
         $data = [
             'user' => [
-                'name' => 'Test Admin 1',
-                'email' => 'test_admin@test.com',
-                'password' => Hash::make('test_admin@test.com')
+                'name' => 'Solaris Admin',
+                'email' => 'admin@solaris.com',
+                'password' => Hash::make('admin@solaris.com')
             ],
             'profile' => [
-                'name' => 'Test Admin 1',
-                'email' => 'test_admin@test.com',
+                'name' => 'Solaris Admin',
+                'email' => 'admin@solaris.com',
                 'phone_number' => '081234567890',
                 'gender_id' => GenderConst::Male,
                 'birthdate' => $now,
@@ -62,19 +51,17 @@ class UserSeeder extends Seeder
 
     protected function user(): void
     {
-        $owner = User::select('id')->where('email', 'test_admin@test.com')->first();
         $now = Carbon::now();
         $data = [
             [
                 'user' => [
-                    'name' => 'Test user 1',
-                    'email' => 'test_user_1@test.com',
-                    'password' => Hash::make('test_user_1@test.com'),
-                    'owner_id' => $owner->id
+                    'name' => 'Solaris User 1',
+                    'email' => 'user1@solaris.com',
+                    'password' => Hash::make('user1@solaris.com')
                 ],
                 'profile' => [
-                    'name' => 'Test user 1',
-                    'email' => 'test_user_1@test.com',
+                    'name' => 'Solaris User 1',
+                    'email' => 'user1@solaris.com',
                     'phone_number' => '081234567890',
                     'gender_id' => GenderConst::Male,
                     'birthdate' => $now,
@@ -84,14 +71,13 @@ class UserSeeder extends Seeder
             ],
             [
                 'user' => [
-                    'name' => 'Test user 2',
-                    'email' => 'test_user_2@test.com',
-                    'password' => Hash::make('test_user_2@test.com'),
-                    'owner_id' => $owner->id
+                    'name' => 'Solaris User 2',
+                    'email' => 'user2@solaris.com',
+                    'password' => Hash::make('user2@solaris.com')
                 ],
                 'profile' => [
-                    'name' => 'Test user 2',
-                    'email' => 'test_user_2@test.com',
+                    'name' => 'Solaris User 2',
+                    'email' => 'user2@solaris.com',
                     'phone_number' => '081234567890',
                     'gender_id' => GenderConst::Male,
                     'birthdate' => $now,

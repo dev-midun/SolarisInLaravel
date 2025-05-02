@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Const\CurrencyConst;
 use App\Const\GenderConst;
 use App\Const\ReligionConst;
 use App\Const\SalutationConst;
@@ -17,14 +18,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class ProfileLookupSeeder extends Seeder
+class LookupSeeder extends Seeder
 {
     public function run(): void
     {
         $this->salutation();
         $this->gender();
         $this->religion();
-        $this->addressLookup();
+        $this->currency();
+        // $this->addressLookup();
     }
 
     protected function salutation(): void
@@ -106,6 +108,125 @@ class ProfileLookupSeeder extends Seeder
             ],
         ];
         DB::table('religion')->insert($data);
+    }
+
+    protected function currency(): void
+    {
+        $data = [
+            [
+                'id' => CurrencyConst::Rupiah,
+                'name' => 'Rupiah',
+                'code' => 'IDR',
+                'symbol' => 'Rp',
+                'position' => 1
+            ],
+            [
+                'id' => CurrencyConst::SingaporeDollar,
+                'name' => 'Singapore Dollar',
+                'code' => 'SGD',
+                'symbol' => 'S$',
+                'position' => 8
+            ],
+            [
+                'id' => CurrencyConst::MalaysianRinggit,
+                'name' => 'Malaysian Ringgit',
+                'code' => 'MYR',
+                'symbol' => 'RM',
+                'position' => 9
+            ],
+            [
+                'id' => CurrencyConst::Baht,
+                'name' => 'Baht',
+                'code' => 'THB',
+                'symbol' => '฿',
+                'position' => 10
+            ],
+            [
+                'id' => CurrencyConst::Dong,
+                'name' => 'Dong',
+                'code' => 'VND',
+                'symbol' => '₫',
+                'position' => 11
+            ],
+            [
+                'id' => CurrencyConst::PhilippinePeso,
+                'name' => 'Philippine Peso',
+                'code' => 'PHP',
+                'symbol' => '₱',
+                'position' => 12
+            ],
+            [
+                'id' => CurrencyConst::Kyat,
+                'name' => 'Kyat',
+                'code' => 'MMK',
+                'symbol' => 'K',
+                'position' => 13
+            ],
+            [
+                'id' => CurrencyConst::Riel,
+                'name' => 'Riel',
+                'code' => 'KHR',
+                'symbol' => '៛',
+                'position' => 14
+            ],
+            [
+                'id' => CurrencyConst::Kip,
+                'name' => 'Kip',
+                'code' => 'LAK',
+                'symbol' => '₭',
+                'position' => 15
+            ],
+            [
+                'id' => CurrencyConst::USDollar,
+                'name' => 'US Dollar',
+                'code' => 'USD',
+                'symbol' => '$',
+                'position' => 2
+            ],
+            [
+                'id' => CurrencyConst::Euro,
+                'name' => 'EURO',
+                'code' => 'EUR',
+                'symbol' => '€',
+                'position' => 3
+            ],
+            [
+                'id' => CurrencyConst::PoundSterling,
+                'name' => 'Pound Sterling',
+                'code' => 'GBP',
+                'symbol' => '£',
+                'position' => 4
+            ],
+            [
+                'id' => CurrencyConst::YuanRenminbi,
+                'name' => 'Yuan Renminbi',
+                'code' => 'CNY',
+                'symbol' => 'CN¥',
+                'position' => 5
+            ],
+            [
+                'id' => CurrencyConst::Yen,
+                'name' => 'Yen',
+                'code' => 'JPY',
+                'symbol' => '¥',
+                'position' => 4
+            ],
+            [
+                'id' => CurrencyConst::Won,
+                'name' => 'Won',
+                'code' => 'KRW',
+                'symbol' => '₩',
+                'position' => 7
+            ],
+            [
+                'id' => CurrencyConst::IndianRupee,
+                'name' => 'Indian Rupee',
+                'code' => 'INR',
+                'symbol' => '₹',
+                'position' => 16
+            ],
+        ];
+        DB::table('currency')->insert($data);
     }
 
     protected function addressLookup(): void

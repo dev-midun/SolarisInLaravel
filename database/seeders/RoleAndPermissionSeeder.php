@@ -11,8 +11,6 @@ use Illuminate\Database\Seeder;
 
 class RoleAndPermissionSeeder extends Seeder
 {
-    private array $defaultAccess = ['create', 'read', 'update', 'delete'];
-
     /**
      * Run the database seeds.
      */
@@ -20,15 +18,12 @@ class RoleAndPermissionSeeder extends Seeder
     {
         $this->roles();
         $this->permission();
-        
-        // $this->supervisorRole();
-        // $this->adminRole();
+        $this->adminRole();
         $this->userRole();
     }
 
     protected function roles(): void
     {
-        Role::create(['name' => 'Supervisor']);
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'User']);
     }
@@ -36,57 +31,71 @@ class RoleAndPermissionSeeder extends Seeder
     protected function permission(): void
     {
         $permissions = [
-            "accounts", 
-            "contacts",
-            "products",
-            "leads",
-            "opportunities",
-            "activities"
+            "components.button",
+            "components.form.input",
+            "components.form.select_combobox",
+            "components.form.checkbox_radio",
+            "components.form.date_picker",
+            "components.form.field",
+            "components.form.form",
+            "components.table",
+            "components.attachment",
+            "components.notes",
+            "components.stages",
+            "components.calendar",
+            "components.others",
+            "example.account.list",
+            "example.account.edit_page",
+            "example.contact.list",
+            "example.contact.edit_page",
+            "example.activity.list",
+            "example.activity.edit_page",
+            "setup.menu",
+            "setup.access_right",
+            "setup.lookup",
+            "setup.user",
         ];
 
         foreach ($permissions as $permission) {
-            foreach ($this->defaultAccess as $access) {
-                Permission::create(['name' => "{$permission}.{$access}"]);
-            }
+            Permission::create(['name' => $permission]);
         }
     }
 
-    // protected function supervisorRole(): void
-    // {
-    //     $role = Role::findByName('Supervisor');
-    // }
-
-    // protected function adminRole(): void
-    // {
-    //     $role = Role::findByName('Admin');
-    //     $permissions = [];
-    //     foreach (Permission::all() as $value) {
-    //         $role->givePermissionTo($value->name);
-    //     }
-
-    //     foreach ($menuForAdmin as $value) {
-    //         RoleHasMenu::create([
-    //             'role_id' => $role->id,
-    //             'menu_id' => $value->id
-    //         ]);
-    //     }
-    // }
+    protected function adminRole(): void
+    {
+        $role = Role::findByName('Admin');
+        foreach (Permission::all() as $value) {
+            $role->givePermissionTo($value->name);
+        }
+        
+        $menus = Menu::validMenu()->orderBy('position', 'asc')->get();
+        foreach ($menus as $menu) {
+            RoleHasMenu::create([
+                'role_id' => $role->id,
+                'menu_id' => $menu->id
+            ]);
+        }
+    }
 
     protected function userRole(): void
     {
         $role = Role::findByName('User');
-        $permissions = [
-            "accounts", 
-            "contacts",
-            "products",
-            "leads",
-            "opportunities",
-            "activities"
-        ];
+        $permissions = Permission::where('name', 'like', 'components.%')
+            ->orWhere('name', 'like', 'example.%')
+            ->get();
         foreach ($permissions as $permission) {
-            foreach ($this->defaultAccess as $access) {
-                $role->givePermissionTo("{$permission}.{$access}");
-            }
+            $role->givePermissionTo($permission->name);
+        }
+
+        $menus = Menu::validMenu()
+            ->where(fn($query) => $query->where('route_name', 'like', 'components.%')->orWhere('route_name', 'like', 'example.%'))
+            ->orderBy('position', 'asc')
+            ->get();
+        foreach ($menus as $menu) {
+            RoleHasMenu::create([
+                'role_id' => $role->id,
+                'menu_id' => $menu->id
+            ]);
         }
     }
 }
