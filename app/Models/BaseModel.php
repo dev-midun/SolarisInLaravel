@@ -24,6 +24,7 @@ class BaseModel extends Model
     protected $guarded = ['created_at', 'updated_at', 'created_by_id', 'updated_by_id'];
     protected $defaultSelectColumn = [];
     protected $defaultWhereColumn = [];
+    protected $appends = ['displayValue'];
 
     protected static function booted()
     {
@@ -43,6 +44,19 @@ class BaseModel extends Model
                 $query->updated_by_id = $userId;
             }
         });
+    }
+
+    public function getDisplayValueAttribute()
+    {
+        return [
+            "column" => static::$displayValue ?? null,
+            "value" => $this->getDisplayValue()
+        ];
+    }
+
+    public function getDisplayValueColumnAttribute()
+    {
+        return static::$displayValue ?? null;
     }
 
     protected function casts(): array

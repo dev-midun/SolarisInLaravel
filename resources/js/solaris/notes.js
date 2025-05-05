@@ -4,6 +4,7 @@ import Helper from './helper'
 export default class Notes {
     _element = null
     _id = null
+    _bindTo = null
     _editor = null
 
     constructor(selector) {
@@ -16,6 +17,12 @@ export default class Notes {
             }
         } else {
             throw new Error(`Selector is not supported`)
+        }
+
+        this._id = this._element.id
+        this._bindTo = this._element.getAttribute("solar-bind")
+        if(Helper.isEmpty(this._bindTo)) {
+            this._bindTo = this._id
         }
 
         this._editor = new Quill(this._element, {
@@ -87,6 +94,14 @@ export default class Notes {
         }
 
         this._editor.setContents(delta)
+    }
+
+    disabled() {
+        this._editor.disabled()
+    }
+
+    enabled() {
+        this._editor.enabled()
     }
 
     // #imageHandler() {

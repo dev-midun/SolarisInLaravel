@@ -2,6 +2,8 @@ import SolarUISingleton from "../../solaris/solar-ui-singleton"
 
 (function() {
     const SolarUI = SolarUISingleton.getInstance()
+    console.log({SolarUI})
+
     const form = SolarUI.get("myForm")
     const btnLoad1 = SolarUI.get("btn_load1")
     const btnLoad2 = SolarUI.get("btn_load2")

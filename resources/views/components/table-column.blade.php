@@ -8,6 +8,7 @@
     "edit" => false,
     "delete" => false,
     "view" => false,
+    "td_class" => null
 ])
 
 <th {{ 
@@ -20,7 +21,8 @@
         "view" => $view === true,
         "edit" => $edit === true,
         "delete" => $delete === true,
-        "lookup" => $autoincrement === false && $select_all === false && ($view === false && $edit === false && $delete === false) && $lookup === true
+        "lookup" => $autoincrement === false && $select_all === false && ($view === false && $edit === false && $delete === false) && $lookup === true,
+        "td-class" => !empty($td_class) ? $td_class : null
     ])
     ->class([
         "orderable" => $orderable === true && $autoincrement === false && $select_all === false,

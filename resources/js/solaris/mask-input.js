@@ -60,8 +60,6 @@ export default class MaskInput extends TextInput {
 
         Object.assign(this._config, config || {})
         this._mask = new Cleave(this._element, this._config)
-        console.log({mask: this._mask, config: this._config})
-
         this._oldValue = this.get()
     }
 
@@ -81,7 +79,7 @@ export default class MaskInput extends TextInput {
     set(value, isSilent = false) {
         this._mask.setRawValue(value)
 
-        const isChanged = this._isChanged(value)
+        const isChanged = this.isChanged(value)
         this._oldValue = value
         if(!isSilent && isChanged) {
             this.trigger('change', this.get())

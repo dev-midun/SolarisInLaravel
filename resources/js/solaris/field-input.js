@@ -40,18 +40,21 @@ export default class FieldInput extends BaseInput {
         this._visible = !this._element.classList.contains("d-none")
         
         this._error = this._message.classList.contains("invalid-feedback")
-        if(this._error && !this._plugin.isError()) {
+        if((this._error && !this._plugin.isError()) || (!this._error && this._plugin.isError())) {
             this._plugin.error()
+            this._error = true
         }
 
         this._valid = this._message.classList.contains("valid-feedback")
-        if(this._valid && !this._plugin.isValid()) {
+        if((this._valid && !this._plugin.isValid()) || (!this._valid && this._plugin.isValid())) {
             this._plugin.valid()
+            this._valid = true
         }
 
-        this._disabled = this._element.getAttribute("disabled")
-        if(this._disabled && !this._plugin.isDisabled()) {
+        this._disabled = this._element.getAttribute("disabled") ? true : false
+        if((this._disabled && !this._plugin.isDisabled()) || (!this._disabled && this._plugin.isDisabled())) {
             this._plugin.disabled()
+            this._disabled = true
         }
 
         this._plugin.on("change", (data) => {

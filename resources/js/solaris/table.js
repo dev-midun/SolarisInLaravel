@@ -9,6 +9,7 @@ export default class Table {
     _table = null
     _columnHeader = null
     _columns = null
+    _extendColumns = null
     _columnDefs = null
     _model = null
     _events = []
@@ -19,6 +20,7 @@ export default class Table {
     _nextPage = null
     _prevPage = null
     _currentPage = null
+    _horizontal = false
     _info = null
     _info_default = "Showing _start_ to _end_ of _recordsDisplay_ entries"
     _info_empty = "No entries available"
@@ -89,6 +91,17 @@ export default class Table {
         this._currentPage = document.querySelector(`#${this._table.id}_pagination nav ul li a.current-paginate`)
         this._model = this._table.getAttribute("model")
         this._perPage = parseInt(this._table.getAttribute("page") ?? this._perPage)
+        this._horizontal = this._table.getAttribute("horizontal") ? true : false
+        this._extendColumns = this._table.getAttribute("extend-columns")?.split(",").map(col => {
+            const name = col.trim()
+            return {
+                name: name,
+                data: name,
+                searchable: false,
+                orderable: false,
+                isLookup: name.endsWith("_id")
+            }
+        }) ?? []
     
         this._filter = new Filter()
         this._initFilter = this._table.getAttribute("filter")
@@ -167,6 +180,7 @@ export default class Table {
                 newCol.orderable = false
                 return newCol
             }),
+            scrollX: this._horizontal,
             columnDefs: this._columnDefs,
             createdRow: (row, data, dataIndex) => {
                 this.trigger("row created", row, data, dataIndex)
@@ -223,6 +237,7 @@ export default class Table {
             this._info.textContent = this.compileTextInfo(pageInfo.recordsTotal > 0 ? this._info_default : this._info_empty, pageInfo)
         }
 
+        this.#handleActionDropdown()
         await this.trigger("init", settings, json)
     }
 
@@ -235,6 +250,7 @@ export default class Table {
         this.#handleChecked()
         this.#handleInfo()
         this.#handlePagination()
+        this.#handleActionDropdown()
 
         await this.trigger("draw", e, settings)
     }
@@ -310,6 +326,7 @@ export default class Table {
             const isViewAction = th.getAttribute("view") ? true : false
             const isEditAction = th.getAttribute("edit") ? true : false
             const isDeleteAction = th.getAttribute("delete") ? true : false
+            const tdClass = th.getAttribute("td-class")
             const isAction = isViewAction || isEditAction || isDeleteAction
 
             const column = {}
@@ -358,6 +375,10 @@ export default class Table {
                 column.isLookup = isLookup
             }
 
+            if(tdClass) {
+                column.className = tdClass
+            }
+
             this._columns.push(column)
         })
     }
@@ -375,6 +396,29 @@ export default class Table {
                 let no = i + 1
                 cell.innerHTML = this._model ? startIndex + no : no
             })
+    }
+
+    #handleActionDropdown() {
+        const tableBody = document.querySelector(this._horizontal ? `#${this._table.id}_wrapper .dt-scroll-body` : `#${this._table.id}_wrapper .dt-layout-row`)
+        const dropdowns = document.querySelectorAll(`#${this._table.id}_wrapper table .dropdown`)
+
+        dropdowns?.forEach(el => {
+            el.addEventListener('show.bs.dropdown', (event) => {
+                const dropdownItem = el.querySelector('ul')
+
+                let tableHeight = getComputedStyle(tableBody, null).height
+                tableHeight = parseFloat(tableHeight.substring(0, tableHeight.length-2))
+                const dropdownHeight = 40 * (dropdownItem.children.length) + 70
+
+                if(dropdownHeight > tableHeight) {
+                    tableBody.style.paddingBottom = dropdownHeight + 'px'
+                }
+            })
+
+            el.addEventListener('hide.bs.dropdown', (event) => {
+                tableBody.style.paddingBottom = ""
+            })
+        })
     }
 
     //#region sort
@@ -617,9 +661,7 @@ export default class Table {
     #handleCheckedAction() {
         const selectAllIndex = this._columns.findIndex(col => col.name == "_select_all")
         if(selectAllIndex != -1) {
-
-            // select all
-            this._dataTable.on("click", `thead tr th input[type="checkbox"].check-all`, (e) => {
+            const selectAllHandler = (e) => {
                 const pageInfo = this._dataTable.page.info()
                 const checkbox = e.target
                 const checked = checkbox.checked
@@ -648,7 +690,15 @@ export default class Table {
                             row.classList.remove("table-active")
                         }
                     })
-            })
+            }
+            
+            // select all
+            const selectAll = document.querySelector(`#${this._table.id}_wrapper .dt-scroll-head table thead tr th input[type="checkbox"].check-all`)
+            if(selectAll) {
+                selectAll.addEventListener("click", selectAllHandler)
+            } else {
+                this._dataTable.on("click", `thead tr th input[type="checkbox"].check-all`, selectAllHandler)
+            }
 
             // select one
             this._dataTable.on("click", `tbody tr td input[type="checkbox"].check-all`, (e) => {
@@ -793,7 +843,7 @@ export default class Table {
                             orderable: col.orderable,
                             isLookup: col.isLookup
                         }
-                    }),
+                    }).concat(this._extendColumns),
                 start: pageInfo.start,
                 length: pageInfo.length,
                 search: this._search?.get() ?? null,
@@ -814,6 +864,4 @@ export default class Table {
         } finally {
         }
     }
-
-
 }

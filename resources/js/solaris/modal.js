@@ -41,11 +41,6 @@ export default class Modal {
             throw new Error(`Callback must be function`)
         }
 
-        const event = this._events.find(event => event.type == type)
-        if(event) {
-            this._element.removeEventListener(`${type}.bs.modal`, event.handler)
-        }
-
         const handler = (e) => callback()
         this._events.push({
             type: type,
@@ -57,8 +52,9 @@ export default class Modal {
     }
 
     async trigger(type) {
-        const event = this._events.find(event => event.type == type)
-        if(event) {
+        const events = this._events.filter(event => event.type == type)
+        for (let i = 0; i < events.length; i++) {
+            const event = events[i]
             await event.callback()
         }
     }

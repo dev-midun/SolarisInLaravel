@@ -24,7 +24,8 @@ class LookupModel extends BaseModel
     {
         return $query->defaultOrder()->get()->map(function($item) {
             $item->id = $item->id;
-            $item->name = $item->{static::$displayValue};
+            // $item->name = $item->{static::$displayValue};
+            $item->name = $item->getDisplayValue();
             
             return $item;
         })
@@ -35,7 +36,8 @@ class LookupModel extends BaseModel
     {
         return $query->defaultOrder()->get()->map(function($item) {
             $item->value = $item->id;
-            $item->text = $item->{static::$displayValue};
+            // $item->text = $item->{static::$displayValue};
+            $item->text = $item->getDisplayValue();
             
             return $item;
         })
@@ -58,7 +60,8 @@ class LookupModel extends BaseModel
         return $query->get()->map(function($item) use($checked) {
             $newItem = (object)[];
             $newItem->id = $item->id;
-            $newItem->label = $item->{static::$displayValue};
+            // $newItem->label = $item->{static::$displayValue};
+            $newItem->label = $item->getDisplayValue();
 
             if($checked == $newItem->id) {
                 $newItem->checked = true;

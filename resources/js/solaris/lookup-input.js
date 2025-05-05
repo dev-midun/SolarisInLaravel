@@ -106,8 +106,6 @@ export default class LookupInput extends BaseInput {
         const func = (data) => {
             if(isPagination) {
                 data.results = data.results.map(item => ({id: item.id, text: item.name}))
-
-                return data 
             } else {
                 data.results = data.map(item => ({id: item.id, text: item.name}))
             }

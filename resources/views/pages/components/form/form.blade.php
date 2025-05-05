@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <x-field id="form_name:name" label="Name" required>
-                                    <x-input id="form_name" placeholder="Enter Name" />
+                                    <x-input id="form_name" placeholder="Enter Name" disabled />
                                 </x-field>
 
                                 <x-field id="form_birthdate:birthdate" label="Birthdate" required>

@@ -14,6 +14,8 @@
     // filter by string => column_name:column_value --> ex: account_id:01967a55-a247-7084-b0c0-29c85c2663fc
     // filter group by array string => ["column_name:column_value", "column_name:column_value"] --> ex: ["account_id:01967a55-a247-7084-b0c0-29c85c2663fc", "account_id:01967a55-a247-7084-b0c0-29c85c2663fc"]
     "filter" => null,
+    "horizontal" => false,
+    "extend_columns" => null
 ])
 
 <div class="card custom-card" id="{{ $id }}_wrapper">
@@ -89,7 +91,9 @@
         @endif
     </div>
     <div class="card-body p-0">
+        @if ($horizontal === false)
         <div class="table-responsive">
+        @endif
             <table {{ 
                 $attributes->class(["table", "solar-table"])
                     ->merge([
@@ -97,6 +101,8 @@
                         "model" => $model, 
                         "page" => $page,
                         "solar-ui" => "table",
+                        "horizontal" => $horizontal === true,
+                        "extend-columns" => !empty($extend_columns) ? $extend_columns : null, 
                         "filter" => !empty($filter) && !is_array($filter) ? json_encode([$filter]) : (!empty($filter) ? json_encode($filter) : null)
                     ]) 
             }}>
@@ -114,7 +120,9 @@
                     @endif
                 </tbody>
             </table>
+        @if ($horizontal === false)
         </div>
+        @endif
     </div>
     <div class="card-footer border-top-0">
         <div class="d-flex align-items-center">

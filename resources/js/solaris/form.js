@@ -10,6 +10,7 @@ import FieldInput from "./field-input"
 import { AxiosError } from "axios"
 import BaseInput from "./base-input"
 import Model from "./model"
+import Notes from "./notes"
 
 export default class Form {
     _element = null
@@ -134,14 +135,21 @@ export default class Form {
      */
     async submit() {
         Helper.loadingPage(true)
-        const fields = this.#getAllField()
-        let req = null
 
-        this.disabled(fields)
+        const fields = this.#getAllField()
+        const enabledFields = new Map()
+        fields.forEach((field, key) => {
+            if(!field.isDisabled()) {
+                disableFields.set(key, field)
+            }
+        })
+        
+        this.disabled(enabledFields)
         this.#isActive = false
 
         await this.trigger("submit", null)
 
+        let req = null
         try {
             const validation = await this.validation(fields)
             if(!validation.success) {
@@ -188,7 +196,7 @@ export default class Form {
 
             return false
         } finally {
-            this.enabled(fields)
+            this.enabled(enabledFields)
             this.#isActive = true
             Helper.loadingPage(false)
         }
@@ -215,7 +223,19 @@ export default class Form {
             const fields = _fields ? _fields : this.#getAllField()
             fields.forEach((value, key) => {
                 if(data.hasOwnProperty(key)) {
-                    value.set(data[key], isSilent)
+                    if(value instanceof LookupInput || value instanceof OptionGroupInput) {
+                        if(key.endsWith("_id")) {
+                            let keyWitoutId = key.substring(0, key.length-3)
+                            let lookupValue = data[keyWitoutId]
+                            if(!lookupValue.hasOwnProperty("name") && lookupValue.hasOwnProperty("displayValue") && lookupValue.displayValue?.value) {
+                                value.set({id: lookupValue.id, name: lookupValue.displayValue.value})
+                            } else {
+                                value.set(lookupValue, isSilent)
+                            }
+                        }
+                    } else {
+                        value.set(data[key], isSilent)
+                    }
                 }
             })
         } catch (error) {
@@ -276,11 +296,6 @@ export default class Form {
             throw new Error(`Callback must be function`)
         }
 
-        const index = this._events.findIndex(event => event.type == type)
-        if(index != -1) {
-            this._events.splice(index, 1)
-        }
-
         this._events.push({
             type: type,
             callback: callback,
@@ -290,8 +305,9 @@ export default class Form {
     }
 
     async trigger(type, data) {
-        const event = this._events.find(event => event.type == type)
-        if(event) {
+        const events = this._events.filter(event => event.type == type)
+        for (let i = 0; i < events.length; i++) {
+            const event = events[i]
             await event.callback(data)
         }
     }
@@ -323,7 +339,9 @@ export default class Form {
         for(const error in errors) {
             if(fields.has(error)) {
                 const field = fields.get(error)
-                field.error()
+                if(typeof field["error"] === "function") {
+                    field.error()
+                }
 
                 if(field instanceof FieldInput) {
                     field.setMessage(errors[error])
@@ -360,12 +378,16 @@ export default class Form {
 
         const fields = _fields ? _fields : this.#getAllField()
         fields.forEach(field => {
+            if(!(typeof field["isRequired"] === "function")) {
+                return
+            }
+
             if(field.isRequired()) {
                 const requiredValidation = this.#requiredValidation(field)
                 if(!requiredValidation.success) {
                     result.success = false
                     errors.push({
-                        id: field instanceof FieldInput ? field._bindTo : field._id,
+                        id: field._bindTo ?? field._id,
                         errors: [requiredValidation.message]
                     })
                 }
@@ -397,7 +419,7 @@ export default class Form {
                         const index = errors.findIndex(e => e.id == id)
                         if(index == -1) {
                             errors.push({
-                                id: field instanceof FieldInput ? field._bindTo : field._id,
+                                id: field._bindTo ?? field._id,
                                 errors: [message]
                             })
                         } else {
@@ -477,7 +499,7 @@ export default class Form {
     #getJson(fields) {
         const data = {}
         fields.forEach(field => {
-            const id = field instanceof FieldInput ? field._bindTo : field._id
+            const id = field._bindTo ?? field._id
             const component = field instanceof FieldInput ? field._plugin : field
             const value = field.get()
 
@@ -489,6 +511,8 @@ export default class Form {
                 data[id] = value?.id ?? null
             } else if(component instanceof DatePicker) {
                 data[id] = component.toString()
+            } else if(component instanceof Notes) {
+                data[id] = component.getJson()
             } else {
                 data[id] = value
             }
@@ -509,7 +533,7 @@ export default class Form {
     #getFormData(fields) {
         const data = new FormData()
         fields.forEach(field => {
-            const id = field instanceof FieldInput ? field._bindTo : field._id
+            const id = field._bindTo ?? field._id
             const component = field instanceof FieldInput ? field._plugin : field
             const value = field.get() ?? ""
 
@@ -523,6 +547,8 @@ export default class Form {
             } else if(component instanceof DatePicker) {
                 const datePickerValue = component.toString()
                 data.append(id, Array.isArray(datePickerValue) ? JSON.stringify(datePickerValue) : datePickerValue)
+            } else if(component instanceof Notes) {
+                data[id] = component.getJson()
             } else {
                 data.append(id, value)
             }
@@ -593,7 +619,7 @@ export default class Form {
         this._fields.forEach(item => {
             if(!this._excludeFields.includes(item)) {
                 const field = solarUI.get(item)
-                map.set(field instanceof FieldInput ? field._bindTo : item, field)
+                map.set(field._bindTo ?? item, field)
             }
         })
 
@@ -658,7 +684,7 @@ export default class Form {
             select[solar-ui]:not(div[solar-id][solar-ui="field"] select), 
             div[solar-ui="input:radio-group"][solar-id]:not(div[solar-id][solar-ui="field"] div), 
             div[solar-ui="input:checkbox-group"][solar-id]:not(div[solar-id][solar-ui="field"] div)`
-        Array.from(this._element.querySelectorAll(standaloneInputsQuery)).forEach(el => {
+        this._element.querySelectorAll(standaloneInputsQuery).forEach(el => {
             const uiType = el.getAttribute('solar-ui')
             if(["input:radio-group", "input:checkbox-group"].includes(uiType)) {
                 this._fields.push(el.getAttribute('solar-id'))
@@ -668,12 +694,17 @@ export default class Form {
         })
 
         const fieldQuery = 'div[solar-id][solar-ui="field"]'
-        Array.from(this._element.querySelectorAll(fieldQuery)).forEach(el => {
+        this._element.querySelectorAll(fieldQuery).forEach(el => {
             this._fields.push(el.getAttribute('solar-id'))
         })
 
+        const notes = 'div[solar-ui="notes"]'
+        this._element.querySelectorAll(notes).forEach(el => {
+            this._fields.push(el.id)
+        })
+
         const buttonQuery = 'button[solar-ui]'
-        Array.from(this._element.querySelectorAll(buttonQuery)).forEach(el => {
+        this._element.querySelectorAll(buttonQuery).forEach(el => {
             this._buttons.push(el.id)
         })
     }
