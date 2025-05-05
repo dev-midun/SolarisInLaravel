@@ -33,6 +33,7 @@
 						id="account-modal-primary_contact_id" 
 						lookup 
 						source="Account"
+						extend_columns="type_id,industry_id,primary_phone"
 						placeholder="Search and select a primary contact" 
 						dropdown_parent="#account-modal"/>
                 </x-field>

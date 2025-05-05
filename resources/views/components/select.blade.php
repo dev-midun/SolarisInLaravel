@@ -13,7 +13,8 @@
     "pagination" => false,
     "lazy" => false,
     "ignore" => false,
-    "dropdown_parent" => null
+    "dropdown_parent" => null,
+    "extend_columns" => null
 ])
 
 <select {{ 
@@ -29,7 +30,8 @@
         "pagination" => $lookup === true && $pagination === true && !is_null($source),
         "lazy" => $lazy === true,
         "ignore" => $ignore === true,
-        "dropdown-parent" => !is_null($dropdown_parent) ? $dropdown_parent : null
+        "dropdown-parent" => !is_null($dropdown_parent) ? $dropdown_parent : null,
+        "extend-columns" => !empty($extend_columns) ? $extend_columns : null,
     ])
     ->merge($attribute)
     ->class([

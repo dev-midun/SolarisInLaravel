@@ -10,6 +10,7 @@ export default class LookupInput extends BaseInput {
     _pagination = false
     _map = null
     _param = null
+    _extendColumns = null
 
     constructor(selector, config = null) {
         super(selector)
@@ -32,6 +33,7 @@ export default class LookupInput extends BaseInput {
             this._config.dropdownParent = $(dropdownParent)
         }
 
+        this._extendColumns = this._element.getAttribute("extend-columns")?.split(",").map(col => col.trim()) ?? []
         this._pagination = this._element.getAttribute("pagination") ? true : false
         this._source = this._element.getAttribute("source")
         if(this._source) {
@@ -81,10 +83,11 @@ export default class LookupInput extends BaseInput {
         }
     }
 
-    static buildParam(callback, isPagination = false) {
+    #buildParam(callback, isPagination = false) {
         const func = (params) => {
             const param = {
-                search: params.term
+                search: params.term,
+                columns: this._extendColumns
             }
 
             if(isPagination) {
@@ -102,12 +105,20 @@ export default class LookupInput extends BaseInput {
         return func
     }
 
-    static processResults(callback = null, isPagination = false) {
+    #processResults(callback = null, isPagination = false) {
         const func = (data) => {
             if(isPagination) {
-                data.results = data.results.map(item => ({id: item.id, text: item.name}))
+                data.results = data.results.map(item => {
+                    // ({id: item.id, text: item.name})
+                    item.text = item.name || item.displayValue?.value
+                    return item
+                })
             } else {
-                data.results = data.map(item => ({id: item.id, text: item.name}))
+                data.results = data.map(item => {
+                    // ({id: item.id, text: item.name})
+                    item.text = item.name || item.displayValue?.value
+                    return item
+                })
             }
 
             if(callback) {
@@ -127,8 +138,8 @@ export default class LookupInput extends BaseInput {
         }
 
         if(config.ajax) {
-            config.ajax.data = LookupInput.buildParam(this._param, this._pagination)
-            config.ajax.processResults = LookupInput.processResults(this._map, this._pagination)
+            config.ajax.data = this.#buildParam(this._param, this._pagination)
+            config.ajax.processResults = this.#processResults(this._map, this._pagination)
         }
 
         this.#lookup = $(this._element).select2(config ?? {})

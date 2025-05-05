@@ -9,6 +9,7 @@ import SolarUISingleton from "../../../solaris/solar-ui-singleton"
     const modal = solarUI.get("account-modal")
     const form = solarUI.get("account-modal-form")
     const profilePicture = solarUI.get("account-modal-profile_picture")
+    const primaryContactLookup = solarUI.get("account-modal-primary_contact_id")
 
     // example using lazy
     // for adding custom event
@@ -60,5 +61,9 @@ import SolarUISingleton from "../../../solaris/solar-ui-singleton"
     modal.on("hide", () => {
         form.reset(true)
         profilePicture.emptyPreview()
+    })
+
+    primaryContactLookup.on("change", (value) => {
+        console.log({value})
     })
 })()

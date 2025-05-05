@@ -21,7 +21,7 @@ class LookupController extends Controller
         if($isModelExists && !$isCustomExists) {
             $model = new $modelClass;
             if(!$model instanceof BaseModel) {
-                return response()->json(['success' => false, 'meessage' => "Lookup {$name} not found"], 404);
+                return response()->json(['success' => false, 'message' => "Lookup {$name} not found"], 404);
             }
 
             return $this->getLookup($request, $model);
@@ -32,7 +32,7 @@ class LookupController extends Controller
             return $this->$name($request);
         }
 
-        return response()->json(['success' => false, 'meessage' => "Lookup {$name} not found"], 404);
+        return response()->json(['success' => false, 'message' => "Lookup {$name} not found"], 404);
     }
 
     // custom lookup here
@@ -44,11 +44,14 @@ class LookupController extends Controller
         $isPagination = $request->has('page') && $request->has('length');
         $isSearch = $request->has('search') && !empty(trim($request->input('search')));
         $isFilter = $request->has('filter') && !empty($request->input('filter'));
+        $column = $request->has('columns') && !empty($request->input('columns')) ? $request->input('columns') : [];
         $isFromCache = !$isPagination && !$isSearch && !$isFilter;
 
         if($isFromCache && $model instanceof LookupModel) {
             $cacheName = "lookup_".get_class($model);
-            $data = Cache::remember($cacheName, 7200, fn () => $model->defaultSelect()->defaultOrder()->toLookup());
+            $data = Cache::remember($cacheName, 7200, function() use($model, $column) {
+                return $model->defaultSelect($column)->defaultOrder()->toLookup();
+            });
             return response()->json($data);
         }
 
@@ -57,7 +60,7 @@ class LookupController extends Controller
         $search = $request->input('search');
         $filter = $request->input('filter');
 
-        $data = $this->getLookupQuery($model, $search, $filter, $page, $length);
+        $data = $this->getLookupQuery($model, $column, $search, $filter, $page, $length);
         if($isPagination) {
             return response()->json([
                 'results' => $data->items(),
@@ -70,9 +73,9 @@ class LookupController extends Controller
         return response()->json($data->get());
     }
 
-    protected function getLookupQuery(BaseModel $model, $search, $filter, $page, $length)
+    protected function getLookupQuery(BaseModel $model, $column, $search, $filter, $page, $length)
     {
-        $query = $model->defaultSelect()
+        $query = $model->defaultSelect(array_values(array_unique(array_merge($column, ["id", $model::$displayValue]))))
             ->defaultOrder()
             ->when(!empty($search), function($query) use($search) {
                 $query->defaultWhere($search);
