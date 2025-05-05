@@ -140,7 +140,7 @@ export default class Form {
         const enabledFields = new Map()
         fields.forEach((field, key) => {
             if(!field.isDisabled()) {
-                disableFields.set(key, field)
+                enabledFields.set(key, field)
             }
         })
         
@@ -223,7 +223,9 @@ export default class Form {
             const fields = _fields ? _fields : this.#getAllField()
             fields.forEach((value, key) => {
                 if(data.hasOwnProperty(key)) {
-                    if(value instanceof LookupInput || value instanceof OptionGroupInput) {
+                    const isField = value instanceof FieldInput
+                    const isFieldLookup = isField && (value._plugin instanceof LookupInput || value._plugin instanceof OptionGroupInput)
+                    if(isFieldLookup || value instanceof LookupInput || value instanceof OptionGroupInput) {
                         if(key.endsWith("_id")) {
                             let keyWitoutId = key.substring(0, key.length-3)
                             let lookupValue = data[keyWitoutId]
