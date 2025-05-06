@@ -60,74 +60,80 @@
 // hover
 
 .stage-button.stage-color-primary.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-primary-bg-subtle);
-    color: var(--vz-primary);
+    color: #fff;
+    background-color: rgb(var(--primary-rgb));
+    border-color: rgb(var(--primary-rgb));
 }
 
 .stage-button.stage-color-secondary.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-secondary-bg-subtle);
-    color: var(--vz-secondary);
+    color: #fff;
+    background-color: rgb(var(--secondary-rgb));
+    border-color: rgb(var(--secondary-rgb));
 }
 
 .stage-button.stage-color-info.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-info-bg-subtle);
-    color: var(--vz-info);
+    color: #fff;
+    background-color: rgb(var(--info-rgb));
+    border-color: rgb(var(--info-rgb));
 }
 
 .stage-button.stage-color-success.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-success-bg-subtle);
-    color: var(--vz-success);
+    color: #fff;
+    background-color: rgb(var(--success-rgb));
+    border-color: rgb(var(--success-rgb));
 }
 
 .stage-button.stage-color-warning.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-warning-bg-subtle);
-    color: var(--vz-warning);
+    color: #fff;
+    background-color: rgb(var(--warning-rgb));
+    border-color: rgb(var(--warning-rgb));
 }
 
 .stage-button.stage-color-danger.stage-hover:not(.stage-selected) {
-    background-color: var(--vz-danger-bg-subtle);
-    color: var(--vz-danger);
+    color: #fff;
+    background-color: rgb(var(--danger-rgb));
+    border-color: rgb(var(--danger-rgb));
 }
 // end hover
 
 // color
 .stage-button.stage-color-primary.stage-selected {
-    background-color: var(--vz-primary);
+    background-color: rgb(var(--primary-rgb));
     color: white;
 }
 
 .stage-button.stage-color-secondary.stage-selected {
-    background-color: var(--vz-secondary);
+    background-color: rgb(var(--secondary-rgb));
     color: white;
 }
 
 .stage-button.stage-color-info.stage-selected {
-    background-color: var(--vz-info);
+    background-color: rgb(var(--info-rgb));
     color: white;
 }
 
 .stage-button.stage-color-success.stage-selected {
-    background-color: var(--vz-success);
+    background-color: rgb(var(--success-rgb));
     color: white;
 }
 
 .stage-button.stage-color-warning.stage-selected {
-    background-color: var(--vz-warning);
+    background-color: rgb(var(--warning-rgb));
     color: black;
 }
 
 .stage-button.stage-color-danger.stage-selected {
-    background-color: var(--vz-danger);
+    background-color: rgb(var(--danger-rgb));
     color: white;
 }
 // end color
 
 
-.stage-button.stage-active:not(.stage-button-dropdown) {
+.stage-button.stage-active:not(.stage-button-dropdown), .stage-button.stage-disabled {
     cursor: not-allowed;
 }
 
-.stage-button.stage-active:not(.stage-button-dropdown) * {
+.stage-button.stage-active:not(.stage-button-dropdown) *, .stage-button.stage-disabled * {
     pointer-events: none;
 }
 

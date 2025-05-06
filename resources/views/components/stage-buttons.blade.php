@@ -1,9 +1,26 @@
 @props([
-    'id' => null,
-    'stages' => []
+    'id',
+    'stages' => [],
+    'lazy' => false,
+    'ignore' => false
 ])
 
-<div id="{{ $id }}" class="stage-container">
+@php
+    if(!empty($id) && empty($bind) && str_contains($id, ":")) {
+        $splitId = explode(":", $id);
+        $id = $splitId[0];
+        $bind = $splitId[1];
+    }
+@endphp
+
+<div id="{{ $id }}" class="stage-container" {{ 
+    $attributes->merge([
+        "lazy" => $lazy === true, 
+        "ignore" => $ignore === true,
+        "solar-ui" => "stages",
+        "solar-bind" => !empty($bind) ? $bind : $id,
+    ]) 
+}}>
     <div class="stage-group">
         @php
             $dropdown = [];
@@ -28,7 +45,7 @@
                 }
             @endphp
 
-            @if (count($dropdown) > 0)
+            @if (isset($dropdown[$stageId]))
                 <div 
                     class="stage-button stage-button-dropdown stage-color-{{ $stageColor ?? "primary" }}" 
                     data-id="{{ $stageId }}" 

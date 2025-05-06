@@ -78,30 +78,42 @@ export default class Notes {
 
     /**
      * set editor
-     * @param {Object|string} delta 
+     * @param {Object|string} delta
      */
     set(delta) {
-        if(Helper.isString(delta)) {
-            try {
-                delta = JSON.parse(delta)
-            } catch (error) {
-                throw new Error("Content must be valid json")
+        if(Helper.isEmpty(delta)) {
+            this._editor.setContents([{ insert: '\n' }]);
+        } else {
+            if(Helper.isString(delta)) {
+                try {
+                    delta = JSON.parse(delta)
+                } catch (error) {
+                    throw new Error("Content must be valid json")
+                }
             }
-        }
 
-        if(!Helper.isObject(delta)) {
-            throw new Error("Content must be object")
-        }
+            if(!Helper.isObject(delta)) {
+                throw new Error("Content must be object")
+            }
 
-        this._editor.setContents(delta)
+            this._editor.setContents(delta)
+        }
+    }
+
+    isDisabled() {
+        return !this._editor.isEnabled()
     }
 
     disabled() {
-        this._editor.disabled()
+        this._editor.enable(false)
     }
 
     enabled() {
-        this._editor.enabled()
+        this._editor.enable()
+    }
+
+    reset() {
+        this.set(null)
     }
 
     // #imageHandler() {
@@ -115,10 +127,10 @@ export default class Notes {
     //         if (!file) {
     //             return
     //         }
-        
+
     //         const formData = new FormData();
     //         formData.append('image', file);
-        
+
     //         const response = await fetch('/quill/upload-image', {
     //           method: 'POST',
     //           headers: {
@@ -126,7 +138,7 @@ export default class Notes {
     //           },
     //           body: formData
     //         });
-        
+
     //         const data = await response.json();
     //         const range = quill.getSelection();
     //         quill.insertEmbed(range.index, 'image', data.url);

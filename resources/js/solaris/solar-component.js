@@ -21,6 +21,7 @@ import ProfilePicture from "./profile-picture"
 import Attachment from "./attachment"
 import MaskInput from "./mask-input"
 import Notes from "./notes"
+import StageButtons from "./stage-button"
 
 export default class SolarComponent {
     #ui = null
@@ -49,6 +50,7 @@ export default class SolarComponent {
         this.#initTable()
         this.#initProfilePicture()
         this.#initAttachment()
+        this.#initStageButton()
 
         this.#init = true
         console.log("Hello, I'm SolarUI 😁. Your components are auto initiliaze and ready use 🚀")
@@ -231,6 +233,19 @@ export default class SolarComponent {
             const uiLazy = el.getAttribute('lazy')
             const uiId = !Helper.isEmpty(el.id) ? el.id : this.#generateId()
             this.#ui.set(uiId, uiLazy ? new LazyLoadComponent(uiId, Notes, [el]) : new Notes(el))
+        })
+    }
+
+    #initStageButton() {
+        document.querySelectorAll(`div[solar-ui="stages"]`).forEach(el => {
+            const uiIgnore = el.getAttribute('ignore')
+            if(uiIgnore) {
+                return
+            }
+            
+            const uiLazy = el.getAttribute('lazy')
+            const uiId = !Helper.isEmpty(el.id) ? el.id : this.#generateId()
+            this.#ui.set(uiId, uiLazy ? new LazyLoadComponent(uiId, StageButtons, [el]) : new StageButtons(el))
         })
     }
 

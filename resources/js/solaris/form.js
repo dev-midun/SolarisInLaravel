@@ -34,8 +34,8 @@ export default class Form {
     #file = {}
 
     /**
-     * 
-     * @param {string|HTMLFormElement} selector 
+     *
+     * @param {string|HTMLFormElement} selector
      */
     constructor(selector) {
         if(selector instanceof HTMLFormElement) {
@@ -54,7 +54,7 @@ export default class Form {
         }
 
         this.#getAllComponents()
-        
+
         this.#model = this._element.getAttribute("model")
         this._method = this._element.querySelector(`input[type="hidden"][name="_method"]`)
         this.#method = this._method ? this._method.value.toUpperCase() : (this._element.method?.toUpperCase() ?? "POST")
@@ -66,7 +66,7 @@ export default class Form {
         if(Helper.isEmpty(this.#action) && this.#model) {
             this.#action = `${BASE_URL}/${this.#model.toLowerCase()}`
         }
-        
+
         if(Helper.isEmpty(this.#action)) {
             throw new Error(`Url cannot be null or empty`)
         }
@@ -85,7 +85,7 @@ export default class Form {
                 }
             }
         })
-        
+
         const submitButton = this._buttons.find(btn => btn.type == "submit")
         submitButton?.addEventListener("click", async (e) => {
             e.preventDefault()
@@ -96,7 +96,7 @@ export default class Form {
 
         console.warn("If you will submit with upload file, change form type to form-data. Use form.setToFormData()")
     }
-    
+
     static supportedEvent() {
         return ["submit", "success", "error", "fail"]
     }
@@ -117,7 +117,7 @@ export default class Form {
 
     /**
      * Add fields that will not be processed
-     * @param {string|Array} fieldName 
+     * @param {string|Array} fieldName
      */
     exclude(fieldName) {
         if(Helper.isString(fieldName)) {
@@ -139,11 +139,15 @@ export default class Form {
         const fields = this.#getAllField()
         const enabledFields = new Map()
         fields.forEach((field, key) => {
+            if(!(typeof field["isDisabled"] === "function")) {
+                return
+            }
+
             if(!field.isDisabled()) {
                 enabledFields.set(key, field)
             }
         })
-        
+
         this.disabled(enabledFields)
         this.#isActive = false
 
@@ -207,8 +211,8 @@ export default class Form {
     /**
      * Load form with data from object / model
      * @param {string|Object} data fill with object for manual, or fill with guid for get from model
-     * @param {boolean} isSilent 
-     * @param {Map<string, BaseInput>} _fields 
+     * @param {boolean} isSilent
+     * @param {Map<string, BaseInput>} _fields
      * @returns {Promise<void>}
      */
     async load(data, isSilent = false, _fields = null) {
@@ -219,25 +223,33 @@ export default class Form {
             if(this.#model || Helper.isString(data)) {
                 data = await Model.get(this.#model, data)
             }
-    
+
             const fields = _fields ? _fields : this.#getAllField()
             fields.forEach((value, key) => {
-                if(data.hasOwnProperty(key)) {
-                    const isField = value instanceof FieldInput
-                    const isFieldLookup = isField && (value._plugin instanceof LookupInput || value._plugin instanceof OptionGroupInput)
-                    if(isFieldLookup || value instanceof LookupInput || value instanceof OptionGroupInput) {
-                        if(key.endsWith("_id")) {
-                            let keyWitoutId = key.substring(0, key.length-3)
-                            let lookupValue = data[keyWitoutId]
-                            if(!lookupValue.hasOwnProperty("name") && lookupValue.hasOwnProperty("displayValue") && lookupValue.displayValue?.value) {
-                                value.set({id: lookupValue.id, name: lookupValue.displayValue.value})
-                            } else {
-                                value.set(lookupValue, isSilent)
+                try {
+                    if(data.hasOwnProperty(key)) {
+                        const isField = value instanceof FieldInput
+                        const isFieldLookup = isField && (value._plugin instanceof LookupInput || value._plugin instanceof OptionGroupInput)
+                        if(isFieldLookup || value instanceof LookupInput || value instanceof OptionGroupInput) {
+                            if(key.endsWith("_id")) {
+                                let keyWitoutId = key.substring(0, key.length-3)
+                                let lookupValue = data[keyWitoutId]
+                                if(!lookupValue) {
+                                    return
+                                }
+
+                                if(!lookupValue.hasOwnProperty("name") && lookupValue.hasOwnProperty("displayValue") && lookupValue.displayValue?.value) {
+                                    value.set({id: lookupValue.id, name: lookupValue.displayValue.value})
+                                } else {
+                                    value.set(lookupValue, isSilent)
+                                }
                             }
+                        } else {
+                            value.set(data[key], isSilent)
                         }
-                    } else {
-                        value.set(data[key], isSilent)
                     }
+                } catch (error) {
+                    console.warn(`${key} is error`, {error})
                 }
             })
         } catch (error) {
@@ -249,8 +261,8 @@ export default class Form {
 
     /**
      * Reset all field
-     * @param {boolean} isSilent 
-     * @param {Map<string, BaseInput>} _fields 
+     * @param {boolean} isSilent
+     * @param {Map<string, BaseInput>} _fields
      */
     reset(isSilent = false, _fields = null) {
         const fields = _fields ? _fields : this.#getAllField()
@@ -261,22 +273,30 @@ export default class Form {
 
     /**
      * Disabled all field
-     * @param {Map<string, BaseInput>} _fields 
+     * @param {Map<string, BaseInput>} _fields
      */
     disabled(_fields = null) {
         const fields = _fields ? _fields : this.#getAllField()
         fields.forEach(field => {
+            if(!(typeof field["disabled"] === "function")) {
+                return
+            }
+
             field.disabled()
         })
     }
 
     /**
      * Enabled all field
-     * @param {Map<string, BaseInput>} _fields 
+     * @param {Map<string, BaseInput>} _fields
      */
     enabled(_fields = null) {
         const fields = _fields ? _fields : this.#getAllField()
         fields.forEach(field => {
+            if(!(typeof field["enabled"] === "function")) {
+                return
+            }
+
             field.enabled()
         })
     }
@@ -284,9 +304,9 @@ export default class Form {
     //#region events
 
     /**
-     * 
-     * @param {string} type 
-     * @param {Function} callback 
+     *
+     * @param {string} type
+     * @param {Function} callback
      * @returns {Form}
      */
     on(type, callback) {
@@ -320,20 +340,24 @@ export default class Form {
 
     /**
      * Set error message to field
-     * @param {Object} errors 
-     * @param {Map<string, BaseInput>} _fields 
-     * @returns 
+     * @param {Object} errors
+     * @param {Map<string, BaseInput>} _fields
+     * @returns
      */
     setErrors(errors, _fields = null) {
         const fields = _fields ? _fields : this.#getAllField()
         if(errors === null) {
             fields.forEach(field => {
+                if(!(typeof field["resetValidation"] === "function")) {
+                    return
+                }
+
                 field.resetValidation()
             })
 
             return
         }
-        
+
         if(!Helper.isObject(errors)) {
             throw new Error("Errors must be object")
         }
@@ -358,7 +382,7 @@ export default class Form {
             this._validations.push({
                 id: key,
                 validations: [callback]
-            })   
+            })
         } else {
             this._validations[index].validations.push(callback)
         }
@@ -367,8 +391,8 @@ export default class Form {
     }
 
     /**
-     * 
-     * @param {Map<string, BaseInput>} _fields 
+     *
+     * @param {Map<string, BaseInput>} _fields
      * @returns {Promise<{result: boolean, errors: Array}>}
      */
     async validation(_fields = null) {
@@ -428,13 +452,13 @@ export default class Form {
                             errors[index].errors.push(message)
                         }
                     }
-                }   
+                }
             } catch (error) {
                 console.error(`Error when processing validation ${id}`, {error})
                 continue
             }
         }
-        
+
         if(!result.success && errors.length > 0) {
             result.errors = {}
             errors.forEach(e => {
@@ -446,9 +470,9 @@ export default class Form {
     }
 
     /**
-     * 
-     * @param {BaseInput} field 
-     * @returns 
+     *
+     * @param {BaseInput} field
+     * @returns
      */
     #requiredValidation(field) {
         const value = field.get()
@@ -474,11 +498,11 @@ export default class Form {
         this.#type = 'json'
         return this
     }
-    
+
     /**
-     * 
-     * @param {Map<string, BaseInput>} _fields 
-     * @returns 
+     *
+     * @param {Map<string, BaseInput>} _fields
+     * @returns
      */
     getData(_fields = null) {
         const fields = _fields ? _fields : this.#getAllField()
@@ -494,8 +518,8 @@ export default class Form {
     }
 
     /**
-     * 
-     * @param {Map<string, BaseInput>} fields 
+     *
+     * @param {Map<string, BaseInput>} fields
      * @returns {Object}
      */
     #getJson(fields) {
@@ -528,9 +552,9 @@ export default class Form {
     }
 
     /**
-     * 
+     *
      * @param {Map<string, BaseInput>} fields
-     * @returns {FormData} 
+     * @returns {FormData}
      */
     #getFormData(fields) {
         const data = new FormData()
@@ -569,8 +593,8 @@ export default class Form {
 
     /**
      * Add custom data to request
-     * @param {string} key 
-     * @param {*} value 
+     * @param {string} key
+     * @param {*} value
      */
     addData(key, value) {
         const fields = this.#getAllField()
@@ -583,10 +607,10 @@ export default class Form {
     }
 
     /**
-     * 
-     * @param {string} key 
-     * @param {File} file 
-     * @param {string} filename 
+     *
+     * @param {string} key
+     * @param {File} file
+     * @param {string} filename
      */
     addFile(key, file, filename) {
         const fields = this.#getAllField()
@@ -600,8 +624,8 @@ export default class Form {
 
     /**
      * Delete custom data
-     * @param {string} key 
-     * @returns 
+     * @param {string} key
+     * @returns
      */
     deleteData(key) {
         if(this.#customData.hasOwnProperty(key)) {
@@ -610,9 +634,9 @@ export default class Form {
 
         return this
     }
-    
+
     /**
-     * 
+     *
      * @returns {Map<string, BaseInput>}
      */
     #getAllField() {
@@ -628,7 +652,7 @@ export default class Form {
         return map
     }
 
-    //#endregion 
+    //#endregion
 
     //#region Alert
 
@@ -681,10 +705,10 @@ export default class Form {
     //#endregion
 
     #getAllComponents() {
-        const standaloneInputsQuery = `input[solar-ui]:not(div[solar-id][solar-ui="field"] input), 
-            textarea[solar-ui]:not(div[solar-id][solar-ui="field"] textarea), 
-            select[solar-ui]:not(div[solar-id][solar-ui="field"] select), 
-            div[solar-ui="input:radio-group"][solar-id]:not(div[solar-id][solar-ui="field"] div), 
+        const standaloneInputsQuery = `input[solar-ui]:not(div[solar-id][solar-ui="field"] input, input[solar-ui="input:search"]),
+            textarea[solar-ui]:not(div[solar-id][solar-ui="field"] textarea),
+            select[solar-ui]:not(div[solar-id][solar-ui="field"] select),
+            div[solar-ui="input:radio-group"][solar-id]:not(div[solar-id][solar-ui="field"] div),
             div[solar-ui="input:checkbox-group"][solar-id]:not(div[solar-id][solar-ui="field"] div)`
         this._element.querySelectorAll(standaloneInputsQuery).forEach(el => {
             const uiType = el.getAttribute('solar-ui')
@@ -702,6 +726,11 @@ export default class Form {
 
         const notes = 'div[solar-ui="notes"]'
         this._element.querySelectorAll(notes).forEach(el => {
+            this._fields.push(el.id)
+        })
+
+        const stages = 'div[solar-ui="stages"]'
+        this._element.querySelectorAll(stages).forEach(el => {
             this._fields.push(el.id)
         })
 

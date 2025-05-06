@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class LookupModel extends BaseModel
 {
@@ -71,22 +72,38 @@ class LookupModel extends BaseModel
         });
     }
 
-    public function scopeToStage(Builder $query)
+    public function scopeToStage(Builder $query, bool|array|string $confirm = false)
     {
         $parentStage = $query->defaultSelect()
             ->whereNull('group_id')
             ->orderBy('position', 'asc')
             ->get();
 
-        return $this->getStageMenu($parentStage)
-            ->map(function($item) {
+        $isConfirmAll = is_bool($confirm);
+        $isSpecificConfirm = Str::isUuid($confirm);
+        $isArrayConfirm = is_array($confirm);
+
+        return $this->getStageMenu($parentStage, $confirm)
+            ->map(function($item) use($confirm, $isConfirmAll, $isSpecificConfirm, $isArrayConfirm) {
+                $_confirm = false;
+                if($isConfirmAll) {
+                    $_confirm = $confirm;
+                } else if($isSpecificConfirm) {
+                    $_confirm = $confirm == $item->id ? true : false;
+                } else if($isArrayConfirm) {
+                    $_confirm = in_array($item->id, $confirm);
+                }
+
+                $item->confirm = $_confirm;
+
                 unset($item->group, $item->group_id);
                 if(!is_null($item->menu)) {
                     $menu = [];
                     $menu[] = [
                         'id' => $item->id,
                         'name' => $item->name,
-                        'color' => $item->color
+                        'color' => $item->color,
+                        'confirm' => $_confirm
                     ];
 
                     foreach ($item->menu as $value) {

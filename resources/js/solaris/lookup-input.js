@@ -27,7 +27,7 @@ export default class LookupInput extends BaseInput {
         if(this._placeholder) {
             this._config.placeholder = this._placeholder
         }
-        
+
         let dropdownParent = this._element.getAttribute("dropdown-parent")
         if(dropdownParent) {
             this._config.dropdownParent = $(dropdownParent)
@@ -92,7 +92,7 @@ export default class LookupInput extends BaseInput {
 
             if(isPagination) {
                 param.length = 10
-                param.page = params.page || 1 
+                param.page = params.page || 1
             }
 
             if(callback) {
@@ -162,6 +162,7 @@ export default class LookupInput extends BaseInput {
         }
 
         $(this._element).on(`select2:select`, (e) => {
+            this._value = e.params.data
             isChanged()
         })
 
@@ -172,7 +173,7 @@ export default class LookupInput extends BaseInput {
         $(this._element).on('select2:unselecting', function() {
             $(this).data('unselecting', true)
         })
-        
+
         $(this._element).on('select2:opening', function(e) {
             if ($(this).data('unselecting')) {
                 $(this).removeData('unselecting')
@@ -227,8 +228,8 @@ export default class LookupInput extends BaseInput {
 
     /**
      * set value element
-     * @param {string|{id:string, name:string}} value 
-     * @param {boolean} isSilent. trigger change event, default is false 
+     * @param {string|{id:string, name:string}} value
+     * @param {boolean} isSilent. trigger change event, default is false
      */
     set(value, isSilent = false) {
         const isChanged = this.isChanged(value)
@@ -286,7 +287,7 @@ export default class LookupInput extends BaseInput {
                         data: value
                     }
                 })
-            
+
             if(!isSilent && isChanged) {
                 this.trigger('change', value)
             }
@@ -306,7 +307,7 @@ export default class LookupInput extends BaseInput {
             type: type,
             callback: callback
         })
-        
+
         $(this._element).on(`select2:${type}`, (e) => {
             callback(this.get())
         })
